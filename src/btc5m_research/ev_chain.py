@@ -1,30 +1,10 @@
-"""Expected-value decomposition for one quoting decision.
+"""Expected value of one modeled paired quoting decision.
 
-Per decision window the policy ends in exactly one of four states, and the EV is
-the probability-weighted sum over them::
-
-    EV = A*B*rho * (spread + 2*rebate)            both legs fill -> flat
-       + A*(1-B) * (edge_a + rebate - drift_a)    one leg fills -> position held
-       + (1-A)*B * (edge_b + rebate - drift_b)
-       + (1-A)*(1-B) * 0                          nothing fills
-
-``A`` and ``B`` are per-side fill probabilities, and ``rho`` corrects their product
-for the fact that the two legs are **anticorrelated**: the move that fills one side
-pulls price away from the other. Measured joint completion was 0.36 against a
-product of 0.45, so treating the legs as independent inflates the one term that
-actually earns.
-
-The both-fill branch carries no drift term, and that is an identity rather than an
-omission. If both legs fill, the position is flat and the profit is the spread
-regardless of when each leg filled -- see ``accounting.matched_round_trip_cents``.
-Drift only bites a leg that stays unmatched.
-
-``drift`` is the **observable** post-fill price move. The unobservable part -- the
-adverse-selection cost of a fill that looked benign at decision time -- enters as a
-free parameter ``alpha`` charged to unmatched legs only. Roughly half of informed
-flow leaves no signature in the price feed before it arrives, so ``alpha`` cannot be
-estimated from the tape. It is scanned instead, and the verdict is read off whether
-its admissible range has any room left.
+For marginal fill probabilities A and B and joint probability J, the four
+outcome weights are J, A-J, B-J and 1-A-B+J. The joint model A*B*rho is
+projected onto the Frechet bounds max(0,A+B-1) <= J <= min(A,B).
+Only unmatched branches incur the additional alpha cost. These probabilities
+are modeling inputs, not evidence of actual queue rank or independence.
 """
 
 from __future__ import annotations
@@ -43,12 +23,12 @@ def leg_value_cents(
 
 
 def joint_fill_probability(fill_a: float, fill_b: float, rho: float) -> float:
-    """P(both legs fill), corrected for anticorrelation and clipped to be coherent."""
+    """P(both legs fill), projected onto both Frechet bounds."""
     if not 0.0 <= fill_a <= 1.0 or not 0.0 <= fill_b <= 1.0:
         raise ValueError("fill probabilities must be in [0, 1]")
     if rho < 0.0:
         raise ValueError("rho cannot be negative")
-    return min(fill_a * fill_b * rho, fill_a, fill_b)
+    return max(0.0, fill_a + fill_b - 1.0, min(fill_a * fill_b * rho, fill_a, fill_b))
 
 
 def unmatched_weight(fill_a: float, fill_b: float, rho: float) -> float:

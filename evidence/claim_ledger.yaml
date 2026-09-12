@@ -1,0 +1,48 @@
+{
+  "version": 1,
+  "claims": [
+    {
+      "id": "C-PRICING",
+      "status": "AUTHOR_REPORTED",
+      "coverage": "MARKET_MID",
+      "claim": "Brownian-probit structure describes measured market mids; no participant identity or alpha is inferred.",
+      "source": "docs/market-pricing-model.md"
+    },
+    {
+      "id": "C-D12",
+      "status": "REJECTED_WITHIN_MODEL",
+      "coverage": "AGGREGATE_REPLAY",
+      "claim": "Fresh static-front EV(0) is negative under the stored assumptions.",
+      "source": "evidence/links_d12.json",
+      "unit": "cents per eligible decision moment",
+      "estimate": -0.9845,
+      "ci90": [
+        -1.626,
+        -0.364
+      ],
+      "moments": 312,
+      "slots": 193
+    },
+    {
+      "id": "C-PAPER",
+      "status": "DIAGNOSTIC",
+      "coverage": "REPLAY_AND_BROKEN_PAPER",
+      "claim": "Six-slot replay/paper discrepancy identifies harness limitations, not clean economic performance.",
+      "source": "docs/simulation-coverage.md"
+    },
+    {
+      "id": "C-AB",
+      "status": "INVALIDATED",
+      "coverage": "PAPER",
+      "claim": "Earlier 157-slot economic comparison invalidated by subsequent execution audit.",
+      "source": "docs/simulation-coverage.md"
+    },
+    {
+      "id": "C-REPRO",
+      "status": "RUNNABLE",
+      "coverage": "COMPONENT_AND_AGGREGATE",
+      "claim": "Examples and verifier run without the original recordings; upstream estimates are not rebuilt.",
+      "source": "REPRODUCIBILITY.md"
+    }
+  ]
+}

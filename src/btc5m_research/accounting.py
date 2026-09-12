@@ -1,11 +1,8 @@
-"""Fee, rebate and settlement identities for the BTC 5-minute binary.
+"""Historical fee/rebate assumptions and complementary-payoff identities.
 
-Every quantity here is an instrument rule, not an estimate. The venue charges a
-price-dependent taker fee and pays a maker rebate that is a fixed fraction of it,
-so both sit on the same parabola in the contract price ``p`` and both peak at
-``p = 0.5``.
-
-All functions return **cents**; ``p`` is a probability in ``(0, 1)``.
+Fee coefficients describe the study model, not a current venue schedule or a
+guarantee that modeled rebates are earned. Functions return cents unless named
+otherwise; p is a probability in (0,1).
 """
 
 from __future__ import annotations
@@ -14,7 +11,7 @@ TAKER_FEE_COEFF_CENTS = 7.0
 """Taker fee coefficient: fee = 7 * p * (1 - p) cents per share."""
 
 MAKER_REBATE_FRACTION = 0.20
-"""The maker rebate is 20% of the taker-fee schedule."""
+"""Historical model rebate fraction: 20% of the modeled taker-fee schedule."""
 
 MAKER_REBATE_COEFF_CENTS = TAKER_FEE_COEFF_CENTS * MAKER_REBATE_FRACTION
 """Maker rebate coefficient: rebate = 1.4 * p * (1 - p) cents per share."""
@@ -38,7 +35,7 @@ def maker_rebate_cents(p: float, size: float = 1.0) -> float:
 
 
 def maker_fee_cents(p: float, size: float = 1.0) -> float:
-    """Maker fee on this venue is zero. Present so callers state it explicitly."""
+    """Maker fee is zero in the historical study model."""
     _check_price(p)
     return 0.0
 

@@ -26,7 +26,7 @@ This pins the published evidence bytes. The file is the estimator output with li
 normalized to LF, which is how the estimator wrote it; the copy in the private repository carries
 Windows line endings from a local checkout, so it hashes differently while containing identical
 JSON. Both files are marked non-text in `.gitattributes` so that no checkout on any platform can
-rewrite them, and any edit to the content changes the hash and fails the check.
+rewrite them, and an input edit changes the recorded hash; --check fails unless the committed verdict is regenerated to match. A coordinated change to both files is not detected as tampering by this mechanism.
 
 ## Layer 2 — the event level (not reproducible here)
 
@@ -50,7 +50,7 @@ can confirm the model does what the documentation claims, on data they generate 
 - No randomness in the verifier.
 - Bootstrap intervals quoted in the evidence were computed with a fixed seed in the private
   estimator; the interval is reported, not recomputed here.
-- `examples/synthetic_tape.jsonl` is generated from a fixed seed and contains no market data.
+- `examples/synthetic_tape.jsonl` is hand-authored and contains no recorded market data.
 
 ## Environment actually used
 

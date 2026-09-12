@@ -1,30 +1,7 @@
-"""Reproducing the incumbent maker quote schedule.
+"""Market-mid pricing structure and single-feed reference helpers.
 
-The dominant maker on these contracts prices from an external spot reference rather
-than from the contract order book, and its quotes are well described by the same
-Brownian-probit map the fair-value module implements. Two structural facts were
-identified from public data:
-
-* the reference is a **composite of two major spot venues**, followed with a lag of
-  roughly a few hundred milliseconds;
-* the implied volatility term scales with trailing realized volatility rather than
-  being constant.
-
-Fitted per slot, the transformed regression reached a median within-slot R-squared
-of about 0.92. With the specification frozen on earlier logs it reproduced later
-held-out market mids to roughly six ticks of RMSE.
-
-**This is understanding, not edge.** Where the reproduction and the market
-disagreed, the market retained the better realized-outcome calibration. That result
-is what moved the research from treating fair value as an alpha target to treating
-market fair as an empirical axiom; the quote model became a timing and scenario tool
-rather than a pricing one.
-
-A deliberate trap is recorded here too. Merging the two spot references into a
-single last-value series produces a saw-tooth artefact: a persistent level offset
-between venues makes the merged series jump whenever the reporting venue alternates,
-and a spike detector reads those jumps as real events. Signals must be built from a
-single venue -- see ``single_feed_series``.
+See docs/ for empirical scope and limitations. These reference components
+do not establish profitability or guarantee real-world queue bounds.
 """
 
 from __future__ import annotations
@@ -59,10 +36,10 @@ def merged_last_value_series(
 
 
 def transformed_quote_target(mid: float, tau_s: float) -> float:
-    """Map a quoted mid into the space the incumbent schedule is linear in.
+    """Transform a market mid into the linear Brownian-probit model space.
 
     ``Phi^-1(mid) * sqrt(tau)`` is linear in the displacement of the reference price
-    from the strike, so a per-slot regression in this space recovers the schedule.
+    from the strike, so a per-slot regression describes this market-price relationship.
     """
     if not 0.0 < mid < 1.0:
         raise ValueError("mid must be a probability in (0, 1)")

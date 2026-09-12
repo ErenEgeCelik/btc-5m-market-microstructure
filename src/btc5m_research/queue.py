@@ -1,29 +1,7 @@
-"""Queue access and fill measurement for a resting order.
+"""Virtual queue scenarios with explicit activation and cancellation timing.
 
-What the recorded data contain: price levels, the size resting at each, and every
-taker print. What they do **not** contain: order identifiers. So the depth ahead of
-a hypothetical order is inferred from visible size, and the resulting fill
-probability is an upper bound rather than an observation.
-``docs/queue-and-fill-mechanics.md`` states the bias direction and why it is
-one-directional.
-
-Two mechanics are modelled explicitly because omitting either manufactures edge:
-
-* **Activation delay.** An order cannot be filled before it exists. Prints in the
-  first ``post_latency_s`` after the decision are uncapturable. Counting them was
-  responsible for roughly two-thirds of an apparent front-quoting edge.
-* **Cancellation as a race.** A cancel request does not remove an order instantly.
-  The order stays fillable for ``cancel_latency_s``, which is exactly the window in
-  which adverse selection happens.
-
-Fill timing is reported as a **bracket**, never a single number:
-
-* pessimist -- only trades advance us; cancellations ahead of us do not.
-* optimist -- unexplained size reductions are treated as cancellations that
-  promote us.
-
-The truth lies between. A single-number fill assumption is the most common way a
-maker backtest flatters itself.
+See docs/ for empirical scope and limitations. These reference components
+do not establish profitability or guarantee real-world queue bounds.
 """
 
 from __future__ import annotations

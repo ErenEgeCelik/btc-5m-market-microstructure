@@ -1,30 +1,7 @@
-"""Brownian-probit fair value and its price-space volatility.
+"""Brownian-probit reference functions under an idealized constant-volatility model.
 
-The contract pays $1 if the reference price finishes above the strike. Under a
-driftless diffusion for the underlying, the fair probability is the normal CDF of
-the standardized distance to the strike:
-
-    P = Phi((F + offset - K) / (sigma * sqrt(tau)))
-
-``F`` is a fast external price feed, ``K`` the strike the venue resolves against,
-``offset`` a slow estimate of the level difference between feed and oracle, and
-``tau`` the time remaining.
-
-Two consequences shape every downstream decision, and both are derived in
-``docs/mdp-ev-chain.md``:
-
-1. Applying Ito to ``P`` removes the drift term identically, so ``P`` is a
-   martingale: the expected future fair value is today's. Directional exposure
-   therefore has zero expectation by construction, and trading income has to come
-   from the spread and the rebate instead.
-2. The induced volatility of the *price* depends only on the price and the clock:
-   ``sigma_P(P, tau) = phi(Phi^-1(P)) / sqrt(tau)``. It is maximal at ``P = 0.5``,
-   vanishes at the rails, and diverges as ``tau -> 0`` for an interior price --
-   which is why carrying inventory into settlement is a lottery rather than a
-   position.
-
-The martingale property holds only while the volatility used to price is close to
-the volatility that realizes. A mis-scaled ``sigma`` injects an apparent drift.
+See docs/ for empirical scope and limitations. These reference components
+do not establish profitability or guarantee real-world queue bounds.
 """
 
 from __future__ import annotations
@@ -72,8 +49,7 @@ def dynamic_sigma(base: float, vol_coefficient: float, realized_volatility: floa
 
     A constant sigma was measured to sit above the market in calm periods and below
     it in volatile ones, which shows up as a fake mean-reverting or trend-following
-    bias in the fair value. Keeping sigma responsive is what keeps the martingale
-    property approximately true.
+    bias in the fair value. This heuristic does not guarantee a martingale under changing parameters.
     """
     if base <= 0.0:
         raise ValueError("base sigma must be positive")
@@ -86,8 +62,7 @@ def gap_signal_cents(fair: float, mid: float, baseline: float) -> float:
     """High-pass filtered (fair - mid), in cents.
 
     The level of ``fair - mid`` carries a slow bias; the deviation of that level
-    from its own slow average is the timing signal. Being a level rather than a
-    velocity, it degrades gracefully under latency -- a measured ~12% loss at
-    250 ms -- where contemporaneous order-flow signals collapse.
+    from its own slow average is the timing signal. This function only computes the signal; its economic value and latency
+    sensitivity require a separate empirical evaluation.
     """
     return ((fair - mid) - baseline) * 100.0
