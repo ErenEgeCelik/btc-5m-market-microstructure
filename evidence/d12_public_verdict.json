@@ -97,7 +97,7 @@
     "estimator": "tools/mdp3/estimators/d12_hazard_ev.py",
     "methods": "MDP3_METHODS.md#d12",
     "path": "evidence/links_d12.json",
-    "sha256": "f8e3959c7c45edd1d5a5f7b2ebe5e17dbce60db653d446413403c61f9a9d2eb7"
+    "sha256": "428ba2de8fe47fc1e867cc8fcbee706b9fd23f16e5eceb9d8c2db1efd5c48010"
   },
   "verdict_reason": "The apparent discovery-period edge flips negative in fresh data. The 90% slot-cluster interval is entirely below zero even at alpha=0, and removing the worst slot does not restore the sign."
 }

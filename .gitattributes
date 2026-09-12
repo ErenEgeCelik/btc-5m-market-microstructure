@@ -1,3 +1,4 @@
-# Byte-exact verdict comparison requires stable line endings on every platform.
-* text eol=lf
-*.json text eol=lf
+# Byte-exact comparison: never let git rewrite the evidence or the verdict.
+* text=auto
+evidence/links_d12.json -text
+evidence/d12_public_verdict.json -text

@@ -19,7 +19,7 @@ EVIDENCE_INPUT = ROOT / "evidence" / "links_d12.json"
 COMMITTED_VERDICT = ROOT / "evidence" / "d12_public_verdict.json"
 VERIFIER = ROOT / "estimators" / "d12_public_verifier.py"
 
-EXPECTED_INPUT_SHA256 = "f8e3959c7c45edd1d5a5f7b2ebe5e17dbce60db653d446413403c61f9a9d2eb7"
+EXPECTED_INPUT_SHA256 = "428ba2de8fe47fc1e867cc8fcbee706b9fd23f16e5eceb9d8c2db1efd5c48010"
 
 
 def _load_verifier():

@@ -19,12 +19,14 @@ recomputes and byte-compares instead of writing, so a stale committed verdict fa
 The verdict records the SHA-256 of its input:
 
 ```
-f8e3959c7c45edd1d5a5f7b2ebe5e17dbce60db653d446413403c61f9a9d2eb7
+428ba2de8fe47fc1e867cc8fcbee706b9fd23f16e5eceb9d8c2db1efd5c48010
 ```
 
-This is the hash of the byte-identical estimator output in the private research repository. It is
-the integrity link between the two layers: the aggregate numbers published here are the same bytes
-the private estimator produced, and any edit to them changes the hash and fails the check.
+This pins the published evidence bytes. The file is the estimator output with line endings
+normalized to LF, which is how the estimator wrote it; the copy in the private repository carries
+Windows line endings from a local checkout, so it hashes differently while containing identical
+JSON. Both files are marked non-text in `.gitattributes` so that no checkout on any platform can
+rewrite them, and any edit to the content changes the hash and fails the check.
 
 ## Layer 2 — the event level (not reproducible here)
 
