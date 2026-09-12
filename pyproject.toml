@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "btc5m-research"
+version = "0.1.0"
+description = "Verifier-first study of a market-making policy on BTC 5-minute binary contracts"
+readme = "README.md"
+license = { file = "LICENSE" }
+requires-python = ">=3.10"
+dependencies = []
+keywords = ["market-microstructure", "prediction-markets", "market-making", "negative-results"]
+
+[project.urls]
+Repository = "https://github.com/ErenEgeCelik/btc-5m-market-microstructure"
+
+[tool.setuptools.packages.find]
+where = ["src"]

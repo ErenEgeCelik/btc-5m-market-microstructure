@@ -1,0 +1,103 @@
+{
+  "artifact_controls": {
+    "promotion_effect": "Controls support parts of the measurement model, but cannot rescue a policy whose favorable-bound fresh-OOS EV is negative.",
+    "regime_label_placebo": {
+      "interpretation": "The real regime mapping separates outcomes more than shuffled labels.",
+      "real_delta_cents": 3.5903,
+      "shuffled_delta_cents": 0.1661
+    },
+    "side_split_fill_mechanism": {
+      "ask_lambda_permuted": 0.3863,
+      "ask_queue_permuted": -0.0088,
+      "ask_real": 0.419,
+      "bid_lambda_permuted": 0.3995,
+      "bid_queue_permuted": 0.0003,
+      "bid_real": 0.4166,
+      "interpretation": "Both sides show the same mechanism: queue permutation collapses discrimination; trailing-flow permutation largely preserves it."
+    }
+  },
+  "block_stability": {
+    "A_ev0": 0.3383,
+    "B_ev0": 0.4325,
+    "F_ev0": -0.9845,
+    "discovery_blocks_positive": true,
+    "fresh_sign_stable": false
+  },
+  "checks": {
+    "chronological_last30_negative": true,
+    "discovery_A_and_B_positive": true,
+    "fresh_EV0_negative": true,
+    "fresh_ci90_below_zero": true,
+    "fresh_leave_worst_out_still_negative": true,
+    "frozen_analytic_last30_negative": true
+  },
+  "chronological_oos": {
+    "first_70_ev0": 0.3807,
+    "last_30_ev0": -0.9989,
+    "last_30_frozen_analytic_ev0": -0.3772,
+    "passed": false
+  },
+  "claim_id": "PUBLIC-D12C-STATIC-FRONT",
+  "coverage": {
+    "effect_on_negative_verdict": "The result is used only to reject the static policy under favorable represented assumptions.",
+    "not_represented": [
+      "counterfactual queue response to our order",
+      "exact live queue rank",
+      "competitor response to our presence"
+    ],
+    "represented": [
+      "50 ms maker activation",
+      "book-derived quote prices",
+      "maker rebates",
+      "observed post-fill drift",
+      "chronological and block splits"
+    ]
+  },
+  "decision": "DEAD",
+  "domain": "recorded-tape replay; virtual front fills; no live-profit claim",
+  "economics": {
+    "capturable": false,
+    "maker_activation_ms": 50,
+    "maker_fee_cents": 0,
+    "maker_rebate_included": true,
+    "reason": "The favorable-bound replay is negative before adding any non-negative alpha cost.",
+    "unknown_alpha_assumption": 0
+  },
+  "external_wording": "A latency-corrected replay rejected static front quoting on fresh OOS data.",
+  "fresh_oos": {
+    "best_case_kill": true,
+    "ci90": [
+      -1.626,
+      -0.364
+    ],
+    "components": {
+      "drift_cost": -2.2212,
+      "inc_both": 0.2471,
+      "inc_single": 0.9895
+    },
+    "ev0": -0.9845,
+    "ev0_after_removing_each_slot_once_worst_case": -0.8792,
+    "window_life_median_seconds": 0.169
+  },
+  "hypothesis": "Static improve-inside-calm-front quoting retains positive expected value after 50 ms maker activation on fresh chronological OOS data.",
+  "metric": {
+    "meaning": "Matched/single-fill income, maker rebate, and observed post-fill drift with unknown adverse-selection alpha fixed at its favorable lower bound of zero.",
+    "monotonicity": "EV(alpha) cannot improve for alpha >= 0 when EV(0) is already negative",
+    "name": "EV(0)",
+    "unit": "cents per eligible decision moment"
+  },
+  "sample": {
+    "fresh_moments": 312,
+    "fresh_slots": 193,
+    "interval": "90% slot-cluster bootstrap",
+    "uncertainty_unit": "slot"
+  },
+  "schema_version": 1,
+  "source": {
+    "estimator": "tools/mdp3/estimators/d12_hazard_ev.py",
+    "methods": "MDP3_METHODS.md#d12",
+    "path": "evidence/links_d12.json",
+    "sha256": "f8e3959c7c45edd1d5a5f7b2ebe5e17dbce60db653d446413403c61f9a9d2eb7"
+  },
+  "verdict_reason": "The apparent discovery-period edge flips negative in fresh data. The 90% slot-cluster interval is entirely below zero even at alpha=0, and removing the worst slot does not restore the sign."
+}
