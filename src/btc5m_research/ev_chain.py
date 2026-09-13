@@ -9,6 +9,26 @@ are modeling inputs, not evidence of actual queue rank or independence.
 
 from __future__ import annotations
 
+from dataclasses import dataclass
+from math import isfinite
+
+
+@dataclass(frozen=True)
+class FillBranches:
+    """A normalized partition, not four independent events."""
+
+    both: float
+    only_a: float
+    only_b: float
+    neither: float
+
+
+def fill_branches(fill_a: float, fill_b: float, rho: float) -> FillBranches:
+    """Joint/marginal-consistent outcomes for one equal-quantity paired quote."""
+    joint = joint_fill_probability(fill_a, fill_b, rho)
+    return FillBranches(joint, fill_a - joint, fill_b - joint,
+                        max(0.0, 1.0 - fill_a - fill_b + joint))
+
 
 def leg_value_cents(
     edge_cents: float,
@@ -26,8 +46,8 @@ def joint_fill_probability(fill_a: float, fill_b: float, rho: float) -> float:
     """P(both legs fill), projected onto both Frechet bounds."""
     if not 0.0 <= fill_a <= 1.0 or not 0.0 <= fill_b <= 1.0:
         raise ValueError("fill probabilities must be in [0, 1]")
-    if rho < 0.0:
-        raise ValueError("rho cannot be negative")
+    if not isfinite(rho) or rho < 0.0:
+        raise ValueError("rho must be finite and non-negative")
     return max(0.0, fill_a + fill_b - 1.0, min(fill_a * fill_b * rho, fill_a, fill_b))
 
 
@@ -51,9 +71,8 @@ def slot_ev_cents(
     alpha_cents: float = 0.0,
 ) -> float:
     """Probability-weighted EV of one quoting decision, in cents."""
-    p_both = joint_fill_probability(fill_a, fill_b, rho)
-    p_only_a = max(0.0, fill_a - p_both)
-    p_only_b = max(0.0, fill_b - p_both)
+    branches = fill_branches(fill_a, fill_b, rho)
+    p_both, p_only_a, p_only_b = branches.both, branches.only_a, branches.only_b
 
     both = p_both * (spread_cents + rebate_a_cents + rebate_b_cents)
     only_a = p_only_a * leg_value_cents(edge_a_cents, rebate_a_cents, drift_a_cents, alpha_cents)

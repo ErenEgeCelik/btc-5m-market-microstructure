@@ -1,0 +1,155 @@
+{
+  "version": 1,
+  "extraction_date": "2026-09-14",
+  "reproduction_level": "recorded simulator-output recheck",
+  "sources": {
+    "policy_output": {
+      "path": "tools/mdp3/links/links_d8.json",
+      "sha256_raw": "29cf36760e1b27b82d03c06c0d26e092d571446dfb29476ec4d87ce2dbd9fb6a"
+    },
+    "calibration": {
+      "path": "tools/mdp3/links/links_d12_calib.json",
+      "sha256_raw": "346c2654606eeaed7bc3e35d26018de429cb3510b867037cfd9dfd5ae331d92f"
+    },
+    "health": {
+      "path": "tools/mdp3/links/clean_index.json",
+      "sha256_raw": "e47caa74b0ed2e44d31261e6273b328327607681537ded911400a6566914d66d"
+    },
+    "policy_source": {
+      "path": "tools/mdp3/estimators/d8_unified.py",
+      "sha256_raw": "5b17b7f8e9c364bb96e9941a6c06cf9ed153f53f673613db795d8dd06b69930a"
+    },
+    "calibration_source": {
+      "path": "tools/mdp3/estimators/d12_hazard_ev.py",
+      "sha256_raw": "bd8978206a4ed30edb715e270c5e581610aeebcb2d2b8b1465df1716933020da"
+    },
+    "methods": {
+      "path": "MDP3_METHODS.md",
+      "sha256_raw": "1633b55092b8f18033bded0674cc550935a6d83aaf8ba9c63fb1cdae48f3341d"
+    },
+    "state": {
+      "path": "PROJECT_STATE.md",
+      "sha256_raw": "659d9706b444f2bf82150d64f18bdf2e5cfebc70c0a6b5800274fd6d0c61b31a"
+    },
+    "research_log": {
+      "path": "RESEARCH_LOG.md",
+      "sha256_raw": "e9e8e02264ad236539cc6d7fb65694f6cb1bf32f2e899e8bfa2ecfc39d196a76"
+    },
+    "mdp2_chain": {
+      "path": "tools/mdp2/chain.py",
+      "sha256_raw": "770f99bf5d78e2c99390c0216a8ad74e13817ed9283aa31f669a32922a0b51ef"
+    },
+    "mdp2_links": {
+      "path": "tools/mdp2/links.py",
+      "sha256_raw": "97ef7627f4c5100c924f553713a5f064998672adfcaf9390eabcce4d514d179c"
+    },
+    "mdp2_spec": {
+      "path": "MDP2_SPEC.md",
+      "sha256_raw": "c00936fd4960b5be48447f68a3450331d476f7331701f4ef19f6855754b53c98"
+    },
+    "mdp2_audit": {
+      "path": "MDP2_AUDIT.md",
+      "sha256_raw": "0df15d19a0c922ffc5462a5f74e04a13845df90986563df1e2331dbc4456baad"
+    },
+    "derivation": {
+      "path": "MDP_EV_MATH.md",
+      "sha256_raw": "16a03a83bca65abdb70beb2085d7c53b25e5e134ca860bc1af5c9c9662024276"
+    }
+  },
+  "source_symbols": {
+    "policy_source": [
+      "main EVM branch",
+      "main._tab",
+      "main.reb_walk",
+      "main.reg_at",
+      "boot_ci90"
+    ],
+    "calibration_source": [
+      "main calibration export"
+    ],
+    "mdp2_chain": [
+      "Chain",
+      "Param",
+      "Chain.simulate"
+    ]
+  },
+  "producer_version_note": "The available d8 source evolved to add D17 branches after this W snapshot. The retained base/REB/EVM formula is source-mapped; no claim that its current byte hash was the exact historical producer.",
+  "selection": "All archived pes base/REB/EVM/EVMPLC slots, matched one-to-one and checked against W FULL status. No P&L filtering.",
+  "n_slots": 368,
+  "tapes": [
+    "W01",
+    "W02",
+    "W03",
+    "W04",
+    "W05",
+    "W06",
+    "W07",
+    "W08"
+  ],
+  "first_slot_utc": "2026-07-18T20:30:00+00:00",
+  "last_slot_utc": "2026-07-21T12:15:00+00:00",
+  "historical_reports": [
+    {
+      "id": "D11-1013",
+      "source": "PROJECT_STATE.md D11",
+      "n_slots": 1013,
+      "metric": "REB minus base cents/slot",
+      "estimate": 10.9,
+      "ci90": [
+        2.5,
+        19.5
+      ],
+      "scope": "Historical rounded report. Fresh F=146 slots; three fresh tapes improved. Original per-slot archive not present in this release."
+    },
+    {
+      "id": "D15-1013",
+      "source": "PROJECT_STATE.md D15",
+      "n_slots": 1013,
+      "metric": "EVM minus REB cents/slot",
+      "estimate": 67.8,
+      "ci90": [
+        53,
+        82
+      ],
+      "scope": "Historical rounded A+B+F report; calibration A+B, F held out; scrambled-regime paired difference +16.7 [9,24]."
+    },
+    {
+      "id": "D15-grown-F",
+      "source": "PROJECT_STATE.md grown-F",
+      "n_fresh_slots": 371,
+      "metric": "EVM minus base cents/slot on F",
+      "estimate": 83.8,
+      "ci90": [
+        56.5,
+        111.7
+      ],
+      "scope": "Historical rounded report; separate from both original F=146 and current W=368."
+    }
+  ],
+  "public_changes": [
+    "Fr\u00e9chet lower bound added to joint fill weights",
+    "unknown regime held separately",
+    "zero calibration values preserved",
+    "finite and book input validation"
+  ],
+  "limitations": [
+    "Hypothetical queue access; pes/opt are conventions, not proven bounds",
+    "Full REB quantity credited on proxy fill time without quantity-dependent fill probability",
+    "Retrospective settle-group endpoint availability was not established online",
+    "JOIN drift and joint estimates transfer to front, front-calm rates transfer to other regimes, and 10-second fill probabilities rank variable-duration windows",
+    "W paper harness was defective; no economic inference from its P&L",
+    "Slot bootstrap does not address dependence across neighboring slots",
+    "No current oracle or fee-rule claim"
+  ],
+  "public_files": {
+    "data/policy/w_slot_pnl.csv": {
+      "sha256": "db0b3a19116b60948b0635923b98849ba9e0ed0033dc1d468c54bd8269e4f712"
+    },
+    "data/policy/frozen_calibration.json": {
+      "sha256": "efedbe254c35a165ef47718616c7a3359ae8050ced4442e4d392cba460e69e94"
+    },
+    "data/policy/w_archive.json": {
+      "sha256": "1dea42462c3af5879afea78c9b6c9e43b573dae335202ac3ba88af169cdbbcb5"
+    }
+  }
+}

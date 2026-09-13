@@ -1,12 +1,15 @@
 {
-  "version": 1,
+  "version": 2,
   "claims": [
     {
       "id": "C-PRICING",
-      "status": "AUTHOR_REPORTED",
-      "coverage": "MARKET_MID",
-      "claim": "Brownian-probit structure describes measured market mids; no participant identity or alpha is inferred.",
-      "source": "docs/market-pricing-model.md"
+      "status": "MIXED_REPORTED_AND_RECOMPUTED",
+      "coverage": "MARKET_MID_AND_CACHED_SCALE_FEATURES",
+      "claim": "Constructed feed/anchor/probit pricing descriptions and scale-feature models; seven feature candidates refit on 358 archived records.",
+      "source": "evidence/pricing_experiments.json",
+      "n_feature_rows": 358,
+      "evaluation_status": "Model-card historical scores; feature LOGO validation, not chronological final test.",
+      "reproduction_level": "Archived feature refit plus source-reported pricing scores"
     },
     {
       "id": "C-D12",
@@ -40,9 +43,82 @@
     {
       "id": "C-REPRO",
       "status": "RUNNABLE",
-      "coverage": "COMPONENT_AND_AGGREGATE",
-      "claim": "Examples and verifier run without the original recordings; upstream estimates are not rebuilt.",
+      "coverage": "COMPONENT_FEATURE_AGGREGATE_AND_RECORDED_OUTPUT",
+      "claim": "Reference components, archived feature refits, mechanics aggregate audits, paired simulator-output comparisons and D12 decision rule are runnable; full raw-tape experiments are not rebuilt.",
       "source": "REPRODUCIBILITY.md"
+    },
+    {
+      "id": "C-DATA",
+      "status": "IMPLEMENTED_EXTRACT",
+      "coverage": "CAUSAL_REFERENCE_AND_HEALTH",
+      "claim": "Arrival-clock joins, venue separation, health masks and activation-aware execution examples make measurement assumptions inspectable.",
+      "source": "docs/data-engineering.md",
+      "implementation": "src/btc5m_research/microstructure.py"
+    },
+    {
+      "id": "C-RESPONSE",
+      "status": "ARCHIVED_AGGREGATE_AUDIT",
+      "coverage": "CONDITIONAL_FEED_BOOK_EVENTS",
+      "claim": "D4 correct first move among non-fizzles is 87.05 percent; reported median response 275 milliseconds. Exact selections and denominators accompany the source.",
+      "source": "evidence/mechanics_experiments.json",
+      "evaluation_status": "Historical estimator outputs; event selection and placebo estimates not regenerated."
+    },
+    {
+      "id": "C-INVENTORY",
+      "status": "SOURCE_DERIVED_AND_ANALYTICAL",
+      "coverage": "SPLIT_INVENTORY_ACCOUNTING",
+      "claim": "Paired UP/DOWN shares have certain terminal value; unmatched inventory carries Bernoulli settlement exposure.",
+      "source": "docs/mdp-ev-chain.md",
+      "implementation": "src/btc5m_research/accounting.py"
+    },
+    {
+      "id": "C-POLICY",
+      "status": "RECORDED_SIMULATOR_OUTPUT_RECHECK",
+      "coverage": "W01_W08_368_COMMON_SLOTS",
+      "claim": "Book-priced one-step EV selection and inventory rules; historical W comparisons recomputed from archived outputs.",
+      "source": "evidence/policy_experiments.json",
+      "implementation": "src/btc5m_research/policy.py",
+      "n_slots": 368,
+      "unit": "cents per slot at historical five-share base clip",
+      "recomputed_comparisons": [
+        {
+          "variant": "EVM minus base",
+          "estimate": 68.5024,
+          "ci90": [
+            39.35,
+            95.17
+          ]
+        },
+        {
+          "variant": "EVM minus scrambled EVM",
+          "estimate": 26.5074,
+          "ci90": [
+            12.63,
+            40.8
+          ]
+        }
+      ],
+      "evaluation_status": "Model-dependent replay; queue priority, full rebalance quantity and online scheduler availability remain unestablished. No live economic conclusion.",
+      "reproduction_level": "Paired slot-output arithmetic and bootstrap, not fill-path reconstruction"
+    },
+    {
+      "id": "C-VALIDATION",
+      "status": "HISTORICAL_RESEARCH_PROCESS",
+      "coverage": "PRICING_AND_POLICY_REVISIONS",
+      "claim": "Chronological partitions, scrambled controls, latency audits and paper diagnostics distinguish explanatory, predictive and executable value.",
+      "source": "docs/negative-results.md"
+    },
+    {
+      "id": "C-BINARY-THEORY",
+      "status": "PUBLICATION_DERIVATION",
+      "coverage": "IDEAL_MODEL_AND_FROZEN_INVENTORY",
+      "claim": "Matched constant-volatility Ito derivation and exact Bernoulli CARA indifference values clarify the historical binary-risk argument.",
+      "source": "docs/binary-risk-and-market-making.md",
+      "implementation": "src/btc5m_research/risk.py",
+      "evaluation_status": "Analytical exposition with tests; not a historically deployed A-S optimizer or solved Bellman policy."
     }
-  ]
+  ],
+  "publication_date": "2026-09-14",
+  "format": "JSON, also valid YAML; retained filename for existing links.",
+  "contribution_map": "CONTRIBUTIONS.md"
 }

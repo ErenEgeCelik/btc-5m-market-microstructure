@@ -1,6 +1,7 @@
 # Market and historical settlement
 
-This study concerns BTC five-minute up/down contracts recorded during June–July 2026. The research
+The pricing study uses May–June 2026 records; the later mechanics/policy programme uses June–July
+2026 recordings of BTC five-minute up/down contracts. The research
 modeled settlement as a comparison of reference observations at the window boundaries. A complementary
 Up/Down pair pays a total of one dollar on resolution. The exact historical tie convention should be
 read from the individual contract rule; a continuous diffusion assigns zero probability to an exact tie.

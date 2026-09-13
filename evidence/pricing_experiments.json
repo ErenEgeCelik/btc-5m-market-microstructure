@@ -1,0 +1,745 @@
+{
+  "schema_version": 1,
+  "publication_recheck_date": "2026-09-14",
+  "measurement_contract": "docs/pricing-estimation.md",
+  "source_manifest": "data/pricing/manifest.json",
+  "data_sha256": "a2c601bca47db190556248bc11928944592ec8fdc444c7dd7ceabe929ced63db",
+  "reproduction_level": "archived-feature recheck; original slot estimates are cached inputs",
+  "units": {
+    "sigma_hat": "USD/sqrt(second)",
+    "range2": "USD",
+    "range2_pre": "USD",
+    "mid_error": "ticks; 1 tick = 0.01 USD/share",
+    "brier": "dimensionless squared probability error"
+  },
+  "synthetic_schedule": {
+    "status": "source-derived arithmetic demonstration",
+    "n": 6,
+    "input_sigma": 4,
+    "input_anchor_offset_usd": 3
+  },
+  "recomputed_feature_audit": {
+    "evaluation": "archived-feature recheck; log-wise validation, not chronological OOS",
+    "n": 358,
+    "models": [
+      {
+        "features": [
+          "range2"
+        ],
+        "n": 358,
+        "n_groups": 5,
+        "full_fit": {
+          "intercept": 2.110723217441045,
+          "coefficients": [
+            0.051871409457788266
+          ]
+        },
+        "in_sample_r_squared": 0.34460542245386716,
+        "logo_r_squared": 0.27115273211093716,
+        "coefficient_cv": [
+          0.13817197580824092
+        ],
+        "folds": [
+          {
+            "held_out_group": "P01",
+            "n_train": 222,
+            "n_test": 136,
+            "intercept": 1.7433577969947427,
+            "coefficients": [
+              0.056956673648815785
+            ]
+          },
+          {
+            "held_out_group": "P02",
+            "n_train": 267,
+            "n_test": 91,
+            "intercept": 1.8636296912281214,
+            "coefficients": [
+              0.057552479661481554
+            ]
+          },
+          {
+            "held_out_group": "P03",
+            "n_train": 320,
+            "n_test": 38,
+            "intercept": 1.891358512389469,
+            "coefficients": [
+              0.056100237370823355
+            ]
+          },
+          {
+            "held_out_group": "P04",
+            "n_train": 320,
+            "n_test": 38,
+            "intercept": 2.695970184897049,
+            "coefficients": [
+              0.038818585695409545
+            ]
+          },
+          {
+            "held_out_group": "P05",
+            "n_train": 303,
+            "n_test": 55,
+            "intercept": 2.3758993820672347,
+            "coefficients": [
+              0.04892716863930066
+            ]
+          }
+        ],
+        "vif": {
+          "range2": 1.0
+        },
+        "passes_archived_selection_rule": false
+      },
+      {
+        "features": [
+          "range2_pre"
+        ],
+        "n": 358,
+        "n_groups": 5,
+        "full_fit": {
+          "intercept": 3.896506908933938,
+          "coefficients": [
+            0.026318044617755176
+          ]
+        },
+        "in_sample_r_squared": 0.13401048363000578,
+        "logo_r_squared": 0.08172780121351497,
+        "coefficient_cv": [
+          0.1416877232314814
+        ],
+        "folds": [
+          {
+            "held_out_group": "P01",
+            "n_train": 222,
+            "n_test": 136,
+            "intercept": 3.805716615031072,
+            "coefficients": [
+              0.031015266286566
+            ]
+          },
+          {
+            "held_out_group": "P02",
+            "n_train": 267,
+            "n_test": 91,
+            "intercept": 3.815777068628632,
+            "coefficients": [
+              0.028678738987563516
+            ]
+          },
+          {
+            "held_out_group": "P03",
+            "n_train": 320,
+            "n_test": 38,
+            "intercept": 3.9367534892606324,
+            "coefficients": [
+              0.025302771734705267
+            ]
+          },
+          {
+            "held_out_group": "P04",
+            "n_train": 320,
+            "n_test": 38,
+            "intercept": 3.938947261765599,
+            "coefficients": [
+              0.020033095182183745
+            ]
+          },
+          {
+            "held_out_group": "P05",
+            "n_train": 303,
+            "n_test": 55,
+            "intercept": 4.068822358398288,
+            "coefficients": [
+              0.0255929989030479
+            ]
+          }
+        ],
+        "vif": {
+          "range2_pre": 1.0
+        },
+        "passes_archived_selection_rule": false
+      },
+      {
+        "features": [
+          "range2",
+          "dvol_per_sqrt_s"
+        ],
+        "n": 358,
+        "n_groups": 5,
+        "full_fit": {
+          "intercept": -24.04896164400529,
+          "coefficients": [
+            0.04300405464015137,
+            5.424802211772998
+          ]
+        },
+        "in_sample_r_squared": 0.38347168803511333,
+        "logo_r_squared": 0.32055076872302135,
+        "coefficient_cv": [
+          0.0975780137334948,
+          0.31468090804987287
+        ],
+        "folds": [
+          {
+            "held_out_group": "P01",
+            "n_train": 222,
+            "n_test": 136,
+            "intercept": -24.319634042509993,
+            "coefficients": [
+              0.04664269408242135,
+              5.413014356126584
+            ]
+          },
+          {
+            "held_out_group": "P02",
+            "n_train": 267,
+            "n_test": 91,
+            "intercept": -22.24797171484172,
+            "coefficients": [
+              0.047380849024579286,
+              4.993758936195063
+            ]
+          },
+          {
+            "held_out_group": "P03",
+            "n_train": 320,
+            "n_test": 38,
+            "intercept": -24.405497338971728,
+            "coefficients": [
+              0.04704529626295278,
+              5.46436212694167
+            ]
+          },
+          {
+            "held_out_group": "P04",
+            "n_train": 320,
+            "n_test": 38,
+            "intercept": -5.958241984761479,
+            "coefficients": [
+              0.03771869595987513,
+              1.7846897767449088
+            ]
+          },
+          {
+            "held_out_group": "P05",
+            "n_train": 303,
+            "n_test": 55,
+            "intercept": -25.655039564936875,
+            "coefficients": [
+              0.03908507430478737,
+              5.806610144791347
+            ]
+          }
+        ],
+        "vif": {
+          "range2": 1.259108325971379,
+          "dvol_per_sqrt_s": 1.259108325971379
+        },
+        "passes_archived_selection_rule": true
+      },
+      {
+        "features": [
+          "range2",
+          "abs_ofi_30s"
+        ],
+        "n": 358,
+        "n_groups": 5,
+        "full_fit": {
+          "intercept": 2.610457830532651,
+          "coefficients": [
+            0.05091043175293398,
+            -0.9755200740740966
+          ]
+        },
+        "in_sample_r_squared": 0.3497744544153346,
+        "logo_r_squared": 0.2704726121749357,
+        "coefficient_cv": [
+          0.1369145175409652,
+          0.37631936003392624
+        ],
+        "folds": [
+          {
+            "held_out_group": "P01",
+            "n_train": 222,
+            "n_test": 136,
+            "intercept": 2.331678394801963,
+            "coefficients": [
+              0.05609740522682485,
+              -1.1585705245107143
+            ]
+          },
+          {
+            "held_out_group": "P02",
+            "n_train": 267,
+            "n_test": 91,
+            "intercept": 2.339641683194792,
+            "coefficients": [
+              0.05647426772327054,
+              -0.9382276872598332
+            ]
+          },
+          {
+            "held_out_group": "P03",
+            "n_train": 320,
+            "n_test": 38,
+            "intercept": 2.3783198507360015,
+            "coefficients": [
+              0.05501508746799516,
+              -0.9299820003112821
+            ]
+          },
+          {
+            "held_out_group": "P04",
+            "n_train": 320,
+            "n_test": 38,
+            "intercept": 2.8894783155660844,
+            "coefficients": [
+              0.0384581052198709,
+              -0.37557680312801506
+            ]
+          },
+          {
+            "held_out_group": "P05",
+            "n_train": 303,
+            "n_test": 55,
+            "intercept": 3.1432603244453587,
+            "coefficients": [
+              0.04752237396936525,
+              -1.5114712207986702
+            ]
+          }
+        ],
+        "vif": {
+          "range2": 1.0228814433212488,
+          "abs_ofi_30s": 1.0228814433212488
+        },
+        "passes_archived_selection_rule": false
+      },
+      {
+        "features": [
+          "range2",
+          "dvol_per_sqrt_s",
+          "abs_ofi_30s"
+        ],
+        "n": 358,
+        "n_groups": 5,
+        "full_fit": {
+          "intercept": -23.137324028798822,
+          "coefficients": [
+            0.04237270284854863,
+            5.3219655506181445,
+            -0.8115460478286736
+          ]
+        },
+        "in_sample_r_squared": 0.38703508509094564,
+        "logo_r_squared": 0.3201518974130847,
+        "coefficient_cv": [
+          0.09776554163028886,
+          0.3130014229219667,
+          0.3593723872384928
+        ],
+        "folds": [
+          {
+            "held_out_group": "P01",
+            "n_train": 222,
+            "n_test": 136,
+            "intercept": -23.140702685123156,
+            "coefficients": [
+              0.04638415647864518,
+              5.249288024264339,
+              -0.7692209718519863
+            ]
+          },
+          {
+            "held_out_group": "P02",
+            "n_train": 267,
+            "n_test": 91,
+            "intercept": -21.689963879846758,
+            "coefficients": [
+              0.046374499760420664,
+              4.973903816325842,
+              -0.9108865938324803
+            ]
+          },
+          {
+            "held_out_group": "P03",
+            "n_train": 320,
+            "n_test": 38,
+            "intercept": -23.57198221511413,
+            "coefficients": [
+              0.046293273367095385,
+              5.37508202261581,
+              -0.771279725911011
+            ]
+          },
+          {
+            "held_out_group": "P04",
+            "n_train": 320,
+            "n_test": 38,
+            "intercept": -5.592843052578415,
+            "coefficients": [
+              0.03739043762546939,
+              1.748166816195869,
+              -0.36545668572948686
+            ]
+          },
+          {
+            "held_out_group": "P05",
+            "n_train": 303,
+            "n_test": 55,
+            "intercept": -24.10171640786846,
+            "coefficients": [
+              0.03820935788384725,
+              5.619766148515261,
+              -1.2829623189541641
+            ]
+          }
+        ],
+        "vif": {
+          "range2": 1.2734349751646792,
+          "dvol_per_sqrt_s": 1.264043469770137,
+          "abs_ofi_30s": 1.0268906829615134
+        },
+        "passes_archived_selection_rule": true
+      },
+      {
+        "features": [
+          "range2_pre",
+          "dvol_per_sqrt_s",
+          "abs_ofi_30s"
+        ],
+        "n": 358,
+        "n_groups": 5,
+        "full_fit": {
+          "intercept": -36.57597523436528,
+          "coefficients": [
+            0.013931330062965597,
+            8.465638342030106,
+            -0.9969364818199443
+          ]
+        },
+        "in_sample_r_squared": 0.23532858961204406,
+        "logo_r_squared": 0.19554925911982668,
+        "coefficient_cv": [
+          0.1444387973982881,
+          0.17786021411549952,
+          0.37172879339977605
+        ],
+        "folds": [
+          {
+            "held_out_group": "P01",
+            "n_train": 222,
+            "n_test": 136,
+            "intercept": -37.78029358946058,
+            "coefficients": [
+              0.0116250267752565,
+              8.760041150729023,
+              -0.7968369971653952
+            ]
+          },
+          {
+            "held_out_group": "P02",
+            "n_train": 267,
+            "n_test": 91,
+            "intercept": -40.84645271017419,
+            "coefficients": [
+              0.013728916558620016,
+              9.32568974903279,
+              -1.413109463380623
+            ]
+          },
+          {
+            "held_out_group": "P03",
+            "n_train": 320,
+            "n_test": 38,
+            "intercept": -38.018341168704026,
+            "coefficients": [
+              0.01244189169638837,
+              8.794593389873715,
+              -1.0628271360889587
+            ]
+          },
+          {
+            "held_out_group": "P04",
+            "n_train": 320,
+            "n_test": 38,
+            "intercept": -21.565304503531372,
+            "coefficients": [
+              0.017333918065122796,
+              5.291099332403572,
+              -0.42339567159376607
+            ]
+          },
+          {
+            "held_out_group": "P05",
+            "n_train": 303,
+            "n_test": 55,
+            "intercept": -35.0889331849679,
+            "coefficients": [
+              0.01310945897636321,
+              8.221524932185996,
+              -1.4226018961320968
+            ]
+          }
+        ],
+        "vif": {
+          "range2_pre": 1.3006718060981057,
+          "dvol_per_sqrt_s": 1.2581491983419255,
+          "abs_ofi_30s": 1.0504885930766794
+        },
+        "passes_archived_selection_rule": false
+      },
+      {
+        "features": [
+          "range2",
+          "dvol_per_sqrt_s",
+          "abs_cvd_2m"
+        ],
+        "n": 358,
+        "n_groups": 5,
+        "full_fit": {
+          "intercept": -24.089287664879407,
+          "coefficients": [
+            0.04317773590959276,
+            5.4097033338288245,
+            0.3329403914486903
+          ]
+        },
+        "in_sample_r_squared": 0.3838017355121466,
+        "logo_r_squared": 0.31841822795451735,
+        "coefficient_cv": [
+          0.0987649444955427,
+          0.3148533062934522,
+          0.8644256023985316
+        ],
+        "folds": [
+          {
+            "held_out_group": "P01",
+            "n_train": 222,
+            "n_test": 136,
+            "intercept": -24.31932856579425,
+            "coefficients": [
+              0.04686227681528974,
+              5.387478175872757,
+              0.3675950614810315
+            ]
+          },
+          {
+            "held_out_group": "P02",
+            "n_train": 267,
+            "n_test": 91,
+            "intercept": -22.375794042412124,
+            "coefficients": [
+              0.04761731902263592,
+              4.986814881396546,
+              0.4625213045262705
+            ]
+          },
+          {
+            "held_out_group": "P03",
+            "n_train": 320,
+            "n_test": 38,
+            "intercept": -24.41809830715912,
+            "coefficients": [
+              0.047190438709139915,
+              5.444540736303675,
+              0.31951189137316705
+            ]
+          },
+          {
+            "held_out_group": "P04",
+            "n_train": 320,
+            "n_test": 38,
+            "intercept": -5.841779704079521,
+            "coefficients": [
+              0.03761736065848762,
+              1.7737176814913633,
+              -0.18282921648082667
+            ]
+          },
+          {
+            "held_out_group": "P05",
+            "n_train": 303,
+            "n_test": 55,
+            "intercept": -25.73429574837929,
+            "coefficients": [
+              0.039369610044671766,
+              5.776289871386964,
+              0.6833772483856405
+            ]
+          }
+        ],
+        "vif": {
+          "range2": 1.2708139766950217,
+          "dvol_per_sqrt_s": 1.2602569582707002,
+          "abs_cvd_2m": 1.0095274774149354
+        },
+        "passes_archived_selection_rule": true
+      }
+    ],
+    "selected_features": [
+      "range2",
+      "dvol_per_sqrt_s"
+    ]
+  },
+  "historical_reports": [
+    {
+      "id": "PRICING-CARD-STRUCTURE",
+      "source_ids": [
+        "PRICING_CARD_REPORT",
+        "PRICING_CARD_CODE"
+      ],
+      "status": "archived report, not raw-tape rerun",
+      "report_section": "mm_card all 2026-06-12 16:15, stages 1/3/4",
+      "n_fitted_slots": 340,
+      "median_transformed_r_squared": 0.919,
+      "transformed_r_squared_iqr": [
+        0.838,
+        0.963
+      ],
+      "median_fit_rmse_ticks": {
+        "probit": 2.81,
+        "logistic": 2.84,
+        "piecewise_linear": 4.4
+      },
+      "n_family_slots": {
+        "probit": 340,
+        "logistic": 340,
+        "piecewise_linear": 313
+      },
+      "cb_bn_mean_peak_correlation": 0.529,
+      "receiver_clock_peak_lag_ms": 300,
+      "median_feed_anchor_offset_usd": 0.6,
+      "scope": "Within-slot in-sample fits; feed-candidate association does not identify an individual maker."
+    },
+    {
+      "id": "PRICING-CARD-TRANSFER",
+      "source_ids": [
+        "PRICING_CARD_REPORT",
+        "PRICING_CARD_CODE"
+      ],
+      "status": "archived held-out candidate comparison; model selection uses comparison",
+      "report_section": "mm_card all 2026-06-12 16:15, stage 6",
+      "train_period": "May 26-28, 2026",
+      "evaluation_period": "June 5-6 and June 9, 2026",
+      "selected_by_inner_validation": "constant",
+      "inner_validation_median_sigma_absolute_error": {
+        "constant": 1.13,
+        "dynamic": 1.3
+      },
+      "constant_sigma": 4.21,
+      "dynamic_coefficients": [
+        3.41,
+        0.4
+      ],
+      "dynamic_feature": "pre-slot trailing 15-minute one-second increment population standard deviation of cached median(CB,Bitstamp,Kraken)",
+      "pooled_mid_rmse_ticks": {
+        "selected_constant": 11.06,
+        "dynamic_candidate": 5.92,
+        "same_slot_fitted_sigma": 3.87,
+        "one_second_mid_persistence": 3.05,
+        "constant_half": 27.08
+      },
+      "dynamic_mae_ticks": 4.84,
+      "scope": "Earlier-fitted dynamic candidate favored after held-out comparison. Not the later range rule. Reported slotCI95 is a different statistic: bootstrap median per-slot RMSE."
+    },
+    {
+      "id": "PRICING-FEATURE-VERIFIER",
+      "source_ids": [
+        "PRICING_FEATURE_REPORT",
+        "PRICING_FEATURE_SELECTION"
+      ],
+      "status": "archived diagnostic, not untouched OOS",
+      "brier": {
+        "range": 0.1819,
+        "range_plus_dvol": 0.1812,
+        "market_rounded": 0.175
+      },
+      "mid_rmse_ticks": {
+        "range": 7.95,
+        "range_plus_dvol": 7.69
+      },
+      "scope": "Point-weighted repeated outcomes; full-data fitted candidate; within-slot range and hourly-close availability caveats apply."
+    },
+    {
+      "id": "PRICING-A2-VOLATILITY",
+      "source_ids": [
+        "PRICING_A2_NOTE",
+        "PRICING_A2_Q12"
+      ],
+      "status": "archived chronological split with test-half feature selection",
+      "n_train": 568,
+      "n_evaluation": 569,
+      "realized_sigma_within_20_percent_fraction": {
+        "historical_range_rule": 0.28,
+        "refit_range_rule": 0.33
+      },
+      "selected_feature": "three-minute mean absolute one-second increments",
+      "selected_validation_r_squared": 0.239,
+      "scope": "Different target: realized underlying volatility. Feature ranking and forward selection used evaluation half; no untouched test for selected feature."
+    },
+    {
+      "id": "PRICING-A2-POLICY-DIAGNOSTIC",
+      "source_ids": [
+        "PRICING_A2_NOTE",
+        "PRICING_A2_Q3"
+      ],
+      "status": "historical sensitivity experiment; no general economic upper bound",
+      "n_slots": 289,
+      "post_latency_ms": 330,
+      "cancel_latency_ms": 200,
+      "scope": "Latency assumptions differ from corrected maker50/50ms; a future realized-volatility input need not optimize quote-model/strategy objective. No P&L comparison is reissued as current evidence."
+    },
+    {
+      "id": "PRICING-HYBRID-LEVEL",
+      "source_ids": [
+        "PRICING_HYBRID_NOTE",
+        "PRICING_HYBRID_TEST",
+        "PRICING_HYBRID_CLASS"
+      ],
+      "status": "historical report, not independently rerun",
+      "n_reported_slots": 478,
+      "rows": [
+        {
+          "variant": "feed_self",
+          "level_correlation": 0.878,
+          "one_second_change_correlation": 0.407,
+          "median_absolute_gap_cents": 6.7
+        },
+        {
+          "variant": "oracle_only",
+          "level_correlation": 0.953,
+          "one_second_change_correlation": 0.037,
+          "median_absolute_gap_cents": 5.0
+        },
+        {
+          "variant": "hybrid_v1",
+          "level_correlation": 0.954,
+          "one_second_change_correlation": 0.028,
+          "median_absolute_gap_cents": 4.9
+        },
+        {
+          "variant": "hybrid_v2",
+          "level_correlation": 0.959,
+          "one_second_change_correlation": 0.414,
+          "median_absolute_gap_cents": 4.5
+        }
+      ],
+      "class_replay": {
+        "n_reported_slots": 60,
+        "level_correlation": 0.928
+      },
+      "scope": "Diagnostic script uses per-tick offset weight .05 and .5-second grid; class uses elapsed-time weights. Current class contains v3 lag compensation and cached dynamic scale. No OOS or economic conclusion established by these descriptive comparisons."
+    }
+  ],
+  "limits": [
+    "This feature audit does not regenerate the original 340-slot fits or the six-tick transfer result.",
+    "LOGO is not chronological OOS; model selection uses the same folds.",
+    "Within-slot range is partly contemporaneous with fitted target; pre-slot range is a separate feature.",
+    "DVOL collector indexes hourly bar closes by bar timestamp; point-in-time close availability is unverified.",
+    "Flow collector pagination is capped; aggregate cache cannot establish completeness.",
+    "No new raw tape selection is made; old pricing sessions are outside later MDP3 clean-index coverage.",
+    "No edge, fill probability, live profitability, or exact participant identity is established."
+  ]
+}

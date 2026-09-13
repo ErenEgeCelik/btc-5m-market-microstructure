@@ -30,6 +30,8 @@ def norm_ppf(p: float) -> float:
 
 def fair_probability(feed: float, strike: float, sigma: float, tau: float, offset: float = 0.0) -> float:
     """P(settle above strike) for a driftless underlying."""
+    if not all(math.isfinite(x) for x in (feed, strike, sigma, tau, offset)):
+        raise ValueError("pricing inputs must be finite")
     if sigma <= 0.0:
         raise ValueError("sigma must be positive")
     if tau <= 0.0:
@@ -39,7 +41,7 @@ def fair_probability(feed: float, strike: float, sigma: float, tau: float, offse
 
 def price_volatility(p: float, tau: float) -> float:
     """sigma_P(P, tau) = phi(Phi^-1(P)) / sqrt(tau), the diffusion of the price itself."""
-    if tau <= 0.0:
+    if not math.isfinite(tau) or tau <= 0.0:
         raise ValueError("tau must be positive")
     return norm_pdf(norm_ppf(p)) / math.sqrt(tau)
 
@@ -51,11 +53,16 @@ def dynamic_sigma(base: float, vol_coefficient: float, realized_volatility: floa
     it in volatile ones, which shows up as a fake mean-reverting or trend-following
     bias in the fair value. This heuristic does not guarantee a martingale under changing parameters.
     """
+    if not all(math.isfinite(x) for x in (base, vol_coefficient, realized_volatility)):
+        raise ValueError("volatility inputs must be finite")
     if base <= 0.0:
         raise ValueError("base sigma must be positive")
     if realized_volatility < 0.0:
         raise ValueError("realized volatility cannot be negative")
-    return base + vol_coefficient * realized_volatility
+    result = base + vol_coefficient * realized_volatility
+    if not math.isfinite(result) or result <= 0.0:
+        raise ValueError("resulting pricing sigma must be finite and positive")
+    return result
 
 
 def gap_signal_cents(fair: float, mid: float, baseline: float) -> float:

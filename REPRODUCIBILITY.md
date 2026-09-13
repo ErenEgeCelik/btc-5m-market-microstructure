@@ -1,58 +1,79 @@
-# What can be reproduced here, and what cannot
+# Reproduce the public calculations
 
-This repository separates two layers on purpose, and is explicit about which one a reader is
-standing on.
+The release includes reference algorithms, selected recorded features, archived mechanics
+statistics and per-slot simulator outputs. Each input supports a different kind of recheck.
+No command requires venue credentials, account access or a running trading system.
 
-## Layer 1 — the verdict layer (fully reproducible here)
+## Environment and commands
+
+Use Python 3.10 or newer, from the repository root. The core package and these commands
+use the standard library:
 
 ```bash
-python -B estimators/d12_public_verifier.py          # recompute and write the verdict
-python -B estimators/d12_public_verifier.py --check  # recompute and compare, no writes
+python -B examples/walkthrough.py
+python -B examples/pricing_walkthrough.py
+python -B examples/risk_walkthrough.py
+python -B examples/microstructure_walkthrough.py
+python -B examples/policy_walkthrough.py
+python -B estimators/mechanics_audit.py
+python -B estimators/policy_audit.py
+python -B estimators/d12_public_verifier.py --check
+python -B -m unittest discover -s tests -v
 ```
 
-Requirements: Python 3.10 or newer. No third-party packages, no network access, no private data.
+The scripts add `src/` to their import path, so installing the core package is optional.
+For the optional pricing figure, install `matplotlib>=3.7`, then run:
 
-The verifier reads `evidence/links_d12.json`, applies the pre-declared decision rule, and emits
-`evidence/d12_public_verdict.json` as canonical JSON (sorted keys, two-space indent). `--check`
-recomputes and byte-compares instead of writing, so a stale committed verdict fails loudly.
-
-The verdict records the SHA-256 of its input:
-
-```
-428ba2de8fe47fc1e867cc8fcbee706b9fd23f16e5eceb9d8c2db1efd5c48010
+```bash
+python -B examples/pricing_figures.py
 ```
 
-This pins the published evidence bytes. The file is the estimator output with line endings
-normalized to LF, which is how the estimator wrote it; the copy in the private repository carries
-Windows line endings from a local checkout, so it hashes differently while containing identical
-JSON. Both files are marked non-text in `.gitattributes` so that no checkout on any platform can
-rewrite them, and an input edit changes the recorded hash; --check fails unless the committed verdict is regenerated to match. A coordinated change to both files is not detected as tampering by this mechanism.
+## What each result establishes
 
-## Layer 2 — the event level (not reproducible here)
+| Calculation | Released input | Reproduction level |
+|---|---|---|
+| Causal feed reference, maker activation and queue walk | Hand-authored tape and decision states | Reference algorithm behavior |
+| Binary diffusion, terminal variance and CARA valuations | Declared synthetic values | Analytical identities and numerical behavior |
+| Scale-feature model comparison | 358 cached slot-feature rows | Refit and leave-one-log-out scoring of archived features |
+| Feed response, queue proxy and dropout summaries | Frozen historical aggregates | Arithmetic and denominator audit; no event-level reconstruction |
+| Book-based policy decision | Frozen A+B calibration plus synthetic states | Corrected reference decision model, not the historical policy path |
+| W policy comparison | All 368 common recorded simulator-output slots | Paired differences, descriptive time split and slot bootstrap |
+| D12 rejection | Frozen estimator aggregate and decision rule | Byte-checked application of the decision rule |
 
-`evidence/links_d12.json` was produced by an event-level estimator over roughly 19 GB of recorded
-order-book, trade, and price-feed data, masked by a dropout index. That estimator and those
-recordings are not published: the recordings are large, venue-sourced, and account-adjacent.
+The pricing folds are not chronological OOS; the winning candidate was selected on those folds.
+The policy time split is descriptive within a later model-checking period. It is not a newly
+untouched experiment. The archived simulation outputs retain the assumptions of their historical
+producer; running the corrected public decision component does not regenerate their fills or P&L.
 
-So the honest statement is:
+## Determinism, hashes and provenance
 
-- The **decision rule and its application** to the aggregate statistics are independently checkable.
-- The **aggregate statistics themselves** are author-attested. A reader who doubts them cannot
-  re-derive them from this repository.
+Package-specific records contain source identities, extraction rules and input SHA-256 hashes:
 
-`src/btc5m_research/` exists to make the *modelling* independently inspectable even though the
-estimation is not: the fair-value map, quote schedule, queue walk, EV rollup, dropout masking, and
-fee/rebate accounting are implemented as pure functions with tests and a synthetic fixture. A reader
-can confirm the model does what the documentation claims, on data they generate themselves.
+- [Pricing data](data/pricing/README.md) and [experiments](evidence/pricing_experiments.json).
+- [Mechanics experiments](evidence/mechanics_experiments.json).
+- [Policy data](data/policy/README.md) and [experiments](evidence/policy_experiments.json).
+- [Publication manifest](evidence/publication_manifest.json), covering the released data and
+  the historical theoretical sources used for the integrated exposition.
 
-## Determinism
+The W audit uses 2,000 paired slot resamples with `random.Random(17)` and linearly interpolated
+5th/95th percentiles. Original archived intervals used another bootstrap implementation and need
+not match the new interval bit-for-bit. Neither addresses dependence across neighboring slots.
 
-- No randomness in the verifier.
-- Bootstrap intervals quoted in the evidence were computed with a fixed seed in the private
-  estimator; the interval is reported, not recomputed here.
-- `examples/synthetic_tape.jsonl` is hand-authored and contains no recorded market data.
+D12 `--check` recomputes the committed verdict and byte-compares it without writes.
+Its input hash remains
+`428ba2de8fe47fc1e867cc8fcbee706b9fd23f16e5eceb9d8c2db1efd5c48010`.
+`.gitattributes` prevents line-ending conversion of `data/` and `evidence/`, preserving all
+published input fingerprints across checkouts. A hash detects a mismatch against the pinned
+bytes; it does not authenticate original collection or detect coordinated input/manifest changes.
 
-## Environment actually used
+## What this package does not reconstruct
 
-Python 3.11 on Windows. The verifier and tests use only the standard library, so any Python 3.10+
-on any platform should produce identical bytes. If it does not, that is a bug worth an issue.
+The full underlying recordings and operational engines are not distributed. The D12 event
+estimation involved roughly 19 GB of recorded market data. A reader cannot regenerate its
+event selection, virtual fills, placebo estimates or original confidence intervals here.
+Likewise the compact pricing cache does not prove original feature availability, and the W
+slot outputs do not identify real queue priority. Details accompany each experiment.
+
+The earlier working manuscript is retained in `paper/`. Its original package description and
+test count refer to that earlier release; the expanded repository documentation governs the
+current code and input coverage until the paper's next revision.

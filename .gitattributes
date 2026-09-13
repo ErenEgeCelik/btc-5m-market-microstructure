@@ -2,3 +2,10 @@
 * text=auto
 evidence/links_d12.json -text
 evidence/d12_public_verdict.json -text
+*.py text eol=lf
+*.md text eol=lf
+# Frozen inputs may retain CRLF; preserve their bytes and recognize CR as EOL.
+data/** -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+evidence/** -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+# Matplotlib SVG paths contain generated line-end spacing.
+figures/**/*.svg -whitespace

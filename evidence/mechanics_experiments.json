@@ -1,0 +1,154 @@
+{
+  "version": 1,
+  "frozen_on": "2026-09-14",
+  "methods": [
+    "docs/data-engineering.md",
+    "docs/queue-and-fill-mechanics.md",
+    "docs/market-response.md"
+  ],
+  "inputs": [
+    {
+      "path": "data/mechanics/links_d4.json",
+      "sha256": "ff5ca130f2e784ff24891fa3c28dd4959926f2229c9eef8b25b686c769a83548",
+      "historical_source": "tools/mdp3/links/links_d4.json",
+      "scope": "archived aggregate audit; estimates and intervals not independently regenerated"
+    },
+    {
+      "path": "data/mechanics/links_d4b.json",
+      "sha256": "60c18c87c3249431eca13a0b7a40e0bada2e3b67df7a0228a27cac4796af10a3",
+      "historical_source": "tools/mdp3/links/links_d4b.json",
+      "scope": "archived aggregate audit; estimates and intervals not independently regenerated"
+    },
+    {
+      "path": "data/mechanics/links_d7.json",
+      "sha256": "ceefde182fbbd661aac31890469b84e77a465e8a0209287bdbe17e0b8075f886",
+      "historical_source": "tools/mdp3/links/links_d7.json",
+      "scope": "archived aggregate audit; estimates and intervals not independently regenerated"
+    },
+    {
+      "path": "data/mechanics/links_d14.json",
+      "sha256": "b65f6623bcad3b6936f7db1ad869d131c2492e1a812485bc3e4445e1a7f5518f",
+      "historical_source": "tools/mdp3/links/links_d14.json",
+      "scope": "archived aggregate audit; estimates and intervals not independently regenerated"
+    },
+    {
+      "path": "data/mechanics/b05_health_excerpt.json",
+      "sha256": "0e3f691e79bb218ab7c02b940f249dd961484e547638a01a85859b37566414ad",
+      "historical_source": "tools/mdp3/links/clean_index.json",
+      "scope": "recorded gap/anchor input: recompute eight slot coverage/class entries; full-tape stats reported only"
+    }
+  ],
+  "historical_sources": [
+    {
+      "historical_source": "tools/mdp3/tape_lib.py",
+      "sha256": "0c1bf5a05dd3768cc1bb9bcb7641571c423303cea365146d91d68eaa505a9427",
+      "symbols": [
+        "load",
+        "at_idx",
+        "gaps"
+      ]
+    },
+    {
+      "historical_source": "tools/mdp3/estimators/d0_health.py",
+      "sha256": "f533f0ccb2bd8f2c4cd540b3e0b2a5880187fc6bbbc20c3ec19e90c6bb7e5616",
+      "symbols": [
+        "slot_health",
+        "gap_stats",
+        "mirror_identity"
+      ]
+    },
+    {
+      "historical_source": "tools/mdp3/estimators/d4_confirm_map.py",
+      "sha256": "f8d13dfc89a396bce7b112ed6af0dab4fc2b9531b661eadf3001fd5670dd6228",
+      "symbols": [
+        "main.measure"
+      ]
+    },
+    {
+      "historical_source": "tools/mdp3/estimators/d4b_transfer.py",
+      "sha256": "09dfcd70ded7e8b581a16009e766533e778e56eba2d7713ed4a068a5a3933bda",
+      "symbols": [
+        "main.confirm",
+        "main.book_resp"
+      ]
+    },
+    {
+      "historical_source": "tools/mdp3/estimators/d7_fill_model.py",
+      "sha256": "82c7fee2414f042541532a8af5a5aa0af9776d0478fc96d391d25c5bf1915429",
+      "symbols": [
+        "_grid",
+        "build_table",
+        "k_mle",
+        "fit_cells",
+        "main.discrim"
+      ]
+    },
+    {
+      "historical_source": "tools/mdp3/estimators/d14_spike_anatomy.py",
+      "sha256": "111f35fe66a3b3cdf597624fcd4cb1f6445001df5d62970f91768bb918cb9703",
+      "symbols": [
+        "main.clean_at",
+        "main.measure",
+        "main.agg",
+        "boot_ci90"
+      ]
+    },
+    {
+      "historical_source": "tools/mdp3/estimators/d3_capture.py",
+      "sha256": "36ee91d0a9678417ff5773f0141026389959a04cd81b00ce2615feb0811d6bb5",
+      "symbols": [
+        "SideWalk"
+      ]
+    },
+    {
+      "historical_source": "crypto/infra/clob/client.py",
+      "sha256": "e5685e32e7fa30a6017b89a3706f8d3edfd74ec63afd94384dcae1f1ba759250",
+      "symbols": [
+        "ClobClient.warm_cache_async",
+        "ClobClient._options_for",
+        "ClobClient._do_post_only_buy_limit",
+        "ClobClient.pre_sign_buy",
+        "ClobClient.fire",
+        "ClobClient.start_keepalive"
+      ],
+      "scope": "read-only source trace; actual SDK implementation and timing not replayed"
+    },
+    {
+      "historical_source": "crypto/live/mm_maker.py",
+      "sha256": "7095d534d337563034eb319fdc25edfeb7c6ffa03e61792082edb7443dbb0ffe",
+      "symbols": [
+        "MakerExecutor._wire",
+        "MakerExecutor._submit"
+      ],
+      "scope": "read-only source trace; actual SDK implementation and timing not replayed"
+    },
+    {
+      "historical_source": "shared-client/legacy_v1.py",
+      "sha256": "16d393479bd919b4f951ce4b712a27e0e0d5296dcc6bd241db2ded47f07c4596",
+      "symbols": [
+        "ClobOrderClient.warm_cache",
+        "ClobOrderClient.pre_sign_market_buy",
+        "ClobOrderClient.post_pre_signed"
+      ],
+      "scope": "read-only source trace; actual SDK implementation and timing not replayed"
+    }
+  ],
+  "public_differences": [
+    "ArrivalSeries and calm_before_spike reject invalid or incomplete histories; calm test includes boundary age/gap guards",
+    "first_book_response separates structural interruption from historical D4 fizzle",
+    "slot_health is a pure one-slot extraction; milliseconds-to-seconds input precision preserved",
+    "D7 empirical table exposes integer counts for new user-supplied data; archive integers are not inferred from rounded probabilities"
+  ],
+  "audit_tolerance": {
+    "rounded_probability_or_MAD": 0.00011,
+    "rounded_transfer_ratio": 0.0001
+  },
+  "historical_only_fields": [
+    "medians",
+    "bootstrap intervals",
+    "chronological OOS estimates",
+    "placebo statistics",
+    "D14 mean event-level percentages"
+  ],
+  "economic_scope": "market measurement and proxy diagnostics; no trading performance claim"
+}

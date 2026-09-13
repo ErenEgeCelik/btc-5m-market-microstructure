@@ -1,0 +1,1094 @@
+{
+  "snapshot": "D16 W01-W08, 368 FULL slots, historical simulator output",
+  "params": {
+    "win": [
+      10.0,
+      200.0
+    ],
+    "tau": 0.5,
+    "w_q": 0.4,
+    "th_q": 2.0,
+    "w_c": 0.2,
+    "th_c": 5.0,
+    "post_s": 0.05,
+    "cancel_s": 0.05,
+    "clip": 5.0,
+    "seat_sp": 3,
+    "inv_clamp": 15.0,
+    "book_tol": 0.5,
+    "pl_seed": 29,
+    "reb_min": 5.0,
+    "gate_w": 300.0,
+    "gate_grid": [
+      15.0,
+      25.0,
+      40.0
+    ],
+    "gp_seed": 31
+  },
+  "variants": {
+    "base|pes": {
+      "n_slots": 368,
+      "pnl_per_slot": 54.9491,
+      "ci90": [
+        28.772,
+        81.8368
+      ],
+      "dbl_per_slot": 1.8668,
+      "sgl_per_slot": 17.1005,
+      "dodge_cancel_per_slot": 58.4293,
+      "dodge_save_per_slot": 4.0951,
+      "adverse_fill_per_slot": 11.8505,
+      "clamp_per_slot": 15.1793,
+      "rebate_total_c": 11007.2,
+      "skip_per_slot": 0.0,
+      "gate_na": 0,
+      "reb_mod": {
+        "fills": 0,
+        "qty_sh": 0.0,
+        "canc": 0
+      },
+      "tnow": {
+        "n": 0,
+        "fee_c": 0.0
+      },
+      "flatten": {
+        "n": 311,
+        "pct_slots": 84.5,
+        "avg_absnet_sh": 9.76,
+        "avg_fee_c": 11.209
+      },
+      "blocks": {},
+      "per_tape": {
+        "W01": 175.7254,
+        "W02": 72.1171,
+        "W03": 35.8375,
+        "W04": 118.0032,
+        "W05": -6.2788,
+        "W06": 9.8029,
+        "W07": 30.5316,
+        "W08": 88.0429
+      },
+      "oos": {
+        "first70": {
+          "n": 258,
+          "ev": 55.2532
+        },
+        "last30": {
+          "n": 110,
+          "ev": 54.2359
+        }
+      }
+    },
+    "dplc|pes": {
+      "n_slots": 368,
+      "pnl_per_slot": 49.4509,
+      "ci90": [
+        23.6094,
+        75.8349
+      ],
+      "dbl_per_slot": 1.9946,
+      "sgl_per_slot": 18.2391,
+      "dodge_cancel_per_slot": 60.5788,
+      "dodge_save_per_slot": 2.7255,
+      "adverse_fill_per_slot": 9.6793,
+      "clamp_per_slot": 15.0109,
+      "rebate_total_c": 11725.1,
+      "skip_per_slot": 0.0,
+      "gate_na": 0,
+      "reb_mod": {
+        "fills": 0,
+        "qty_sh": 0.0,
+        "canc": 0
+      },
+      "tnow": {
+        "n": 0,
+        "fee_c": 0.0
+      },
+      "flatten": {
+        "n": 314,
+        "pct_slots": 85.3,
+        "avg_absnet_sh": 9.59,
+        "avg_fee_c": 11.058
+      },
+      "blocks": {},
+      "per_tape": {
+        "W01": 142.8081,
+        "W02": 71.4612,
+        "W03": 19.061,
+        "W04": 110.3205,
+        "W05": -26.682,
+        "W06": 29.878,
+        "W07": 53.3652,
+        "W08": 66.8002
+      },
+      "oos": {
+        "first70": {
+          "n": 258,
+          "ev": 47.3486
+        },
+        "last30": {
+          "n": 110,
+          "ev": 54.3817
+        }
+      },
+      "paired": {
+        "delta": -5.4982,
+        "ci90": [
+          -18.569,
+          8.5787
+        ],
+        "delta_trading": -7.4491,
+        "ci90_trading": [
+          -20.4651,
+          6.6044
+        ]
+      }
+    },
+    "tnow|pes": {
+      "n_slots": 368,
+      "pnl_per_slot": -109.6667,
+      "ci90": [
+        -117.9383,
+        -101.9462
+      ],
+      "dbl_per_slot": 2.3152,
+      "sgl_per_slot": 18.4076,
+      "dodge_cancel_per_slot": 64.7609,
+      "dodge_save_per_slot": 4.5761,
+      "adverse_fill_per_slot": 13.0815,
+      "clamp_per_slot": 0.0,
+      "rebate_total_c": 12106.91,
+      "skip_per_slot": 0.0,
+      "gate_na": 0,
+      "reb_mod": {
+        "fills": 0,
+        "qty_sh": 0.0,
+        "canc": 0
+      },
+      "tnow": {
+        "n": 6774,
+        "fee_c": 48559.25
+      },
+      "flatten": {
+        "n": 0,
+        "pct_slots": 0.0,
+        "avg_absnet_sh": 0.0,
+        "avg_fee_c": 0.0
+      },
+      "blocks": {},
+      "per_tape": {
+        "W01": -84.2248,
+        "W02": -125.6117,
+        "W03": -111.9054,
+        "W04": -52.3316,
+        "W05": -130.6324,
+        "W06": -95.5375,
+        "W07": -130.9484,
+        "W08": -125.7865
+      },
+      "oos": {
+        "first70": {
+          "n": 258,
+          "ev": -100.9247
+        },
+        "last30": {
+          "n": 110,
+          "ev": -130.1706
+        }
+      },
+      "paired": {
+        "delta": -164.6158,
+        "ci90": [
+          -190.8489,
+          -139.2516
+        ],
+        "delta_trading": -167.6042,
+        "ci90_trading": [
+          -193.7058,
+          -142.1894
+        ]
+      }
+    },
+    "reb|pes": {
+      "n_slots": 368,
+      "pnl_per_slot": 64.6706,
+      "ci90": [
+        39.774,
+        89.3177
+      ],
+      "dbl_per_slot": 1.9864,
+      "sgl_per_slot": 17.4457,
+      "dodge_cancel_per_slot": 60.2663,
+      "dodge_save_per_slot": 4.2283,
+      "adverse_fill_per_slot": 12.1766,
+      "clamp_per_slot": 11.0163,
+      "rebate_total_c": 12705.51,
+      "skip_per_slot": 0.0,
+      "gate_na": 0,
+      "reb_mod": {
+        "fills": 603,
+        "qty_sh": 5010.0,
+        "canc": 34
+      },
+      "tnow": {
+        "n": 0,
+        "fee_c": 0.0
+      },
+      "flatten": {
+        "n": 237,
+        "pct_slots": 64.4,
+        "avg_absnet_sh": 8.73,
+        "avg_fee_c": 9.986
+      },
+      "blocks": {},
+      "per_tape": {
+        "W01": 171.6006,
+        "W02": 99.2309,
+        "W03": 32.0759,
+        "W04": 140.7397,
+        "W05": 14.5553,
+        "W06": 13.5011,
+        "W07": 17.5683,
+        "W08": 112.6442
+      },
+      "oos": {
+        "first70": {
+          "n": 258,
+          "ev": 66.6462
+        },
+        "last30": {
+          "n": 110,
+          "ev": 60.0371
+        }
+      },
+      "paired": {
+        "delta": 9.7215,
+        "ci90": [
+          -4.2716,
+          24.3402
+        ],
+        "delta_trading": 5.1065,
+        "ci90_trading": [
+          -8.9937,
+          19.8399
+        ]
+      }
+    },
+    "reb|opt": {
+      "n_slots": 368,
+      "pnl_per_slot": 40.4153,
+      "ci90": [
+        16.7286,
+        62.6449
+      ],
+      "dbl_per_slot": 11.0054,
+      "sgl_per_slot": 25.5543,
+      "dodge_cancel_per_slot": 44.6087,
+      "dodge_save_per_slot": 4.2527,
+      "adverse_fill_per_slot": 28.8478,
+      "clamp_per_slot": 8.2908,
+      "rebate_total_c": 27243.53,
+      "skip_per_slot": 0.0,
+      "gate_na": 0,
+      "reb_mod": {
+        "fills": 891,
+        "qty_sh": 7215.0,
+        "canc": 23
+      },
+      "tnow": {
+        "n": 0,
+        "fee_c": 0.0
+      },
+      "flatten": {
+        "n": 204,
+        "pct_slots": 55.4,
+        "avg_absnet_sh": 8.46,
+        "avg_fee_c": 9.979
+      },
+      "blocks": {},
+      "per_tape": {
+        "W01": 133.7832,
+        "W02": 45.6969,
+        "W03": 21.8991,
+        "W04": 87.1032,
+        "W05": -14.6059,
+        "W06": -4.0617,
+        "W07": -5.094,
+        "W08": 116.9641
+      },
+      "oos": {
+        "first70": {
+          "n": 258,
+          "ev": 33.6203
+        },
+        "last30": {
+          "n": 110,
+          "ev": 56.3524
+        }
+      },
+      "paired": {
+        "delta": 10.8684,
+        "ci90": [
+          -3.7616,
+          25.449
+        ],
+        "delta_trading": 3.8207,
+        "ci90_trading": [
+          -10.8827,
+          18.5205
+        ]
+      }
+    },
+    "g15|pes": {
+      "n_slots": 368,
+      "pnl_per_slot": 8.4964,
+      "ci90": [
+        -7.0693,
+        24.9415
+      ],
+      "dbl_per_slot": 0.5353,
+      "sgl_per_slot": 4.5245,
+      "dodge_cancel_per_slot": 14.8832,
+      "dodge_save_per_slot": 1.0761,
+      "adverse_fill_per_slot": 3.3125,
+      "clamp_per_slot": 2.6223,
+      "rebate_total_c": 3057.65,
+      "skip_per_slot": 58.3261,
+      "gate_na": 65,
+      "reb_mod": {
+        "fills": 0,
+        "qty_sh": 0.0,
+        "canc": 0
+      },
+      "tnow": {
+        "n": 0,
+        "fee_c": 0.0
+      },
+      "flatten": {
+        "n": 227,
+        "pct_slots": 61.7,
+        "avg_absnet_sh": 8.74,
+        "avg_fee_c": 10.379
+      },
+      "blocks": {},
+      "per_tape": {
+        "W01": 17.0138,
+        "W02": 54.7376,
+        "W03": 8.2115,
+        "W04": 49.1591,
+        "W05": -57.4174,
+        "W06": 4.2231,
+        "W07": 15.9286,
+        "W08": 13.5428
+      },
+      "oos": {
+        "first70": {
+          "n": 258,
+          "ev": 7.8971
+        },
+        "last30": {
+          "n": 110,
+          "ev": 9.902
+        }
+      },
+      "paired": {
+        "delta": -46.4527,
+        "ci90": [
+          -68.3496,
+          -23.0062
+        ],
+        "delta_trading": -24.8507,
+        "ci90_trading": [
+          -46.41,
+          -1.6774
+        ]
+      }
+    },
+    "g25|pes": {
+      "n_slots": 368,
+      "pnl_per_slot": 9.7495,
+      "ci90": [
+        -9.5133,
+        29.9772
+      ],
+      "dbl_per_slot": 0.7582,
+      "sgl_per_slot": 6.9783,
+      "dodge_cancel_per_slot": 23.3207,
+      "dodge_save_per_slot": 1.7772,
+      "adverse_fill_per_slot": 5.0109,
+      "clamp_per_slot": 4.7283,
+      "rebate_total_c": 4620.84,
+      "skip_per_slot": 47.1848,
+      "gate_na": 65,
+      "reb_mod": {
+        "fills": 0,
+        "qty_sh": 0.0,
+        "canc": 0
+      },
+      "tnow": {
+        "n": 0,
+        "fee_c": 0.0
+      },
+      "flatten": {
+        "n": 250,
+        "pct_slots": 67.9,
+        "avg_absnet_sh": 9.24,
+        "avg_fee_c": 10.932
+      },
+      "blocks": {},
+      "per_tape": {
+        "W01": 39.4063,
+        "W02": 103.0981,
+        "W03": 22.0346,
+        "W04": 46.0387,
+        "W05": -57.0462,
+        "W06": -10.023,
+        "W07": -20.1523,
+        "W08": 24.4245
+      },
+      "oos": {
+        "first70": {
+          "n": 258,
+          "ev": 14.8322
+        },
+        "last30": {
+          "n": 110,
+          "ev": -2.1717
+        }
+      },
+      "paired": {
+        "delta": -45.1996,
+        "ci90": [
+          -66.9268,
+          -24.1864
+        ],
+        "delta_trading": -27.8454,
+        "ci90_trading": [
+          -49.5345,
+          -7.0006
+        ]
+      }
+    },
+    "g40|pes": {
+      "n_slots": 368,
+      "pnl_per_slot": 28.1468,
+      "ci90": [
+        7.3988,
+        49.6996
+      ],
+      "dbl_per_slot": 1.125,
+      "sgl_per_slot": 10.087,
+      "dodge_cancel_per_slot": 34.0353,
+      "dodge_save_per_slot": 2.4946,
+      "adverse_fill_per_slot": 7.2337,
+      "clamp_per_slot": 7.6196,
+      "rebate_total_c": 6707.12,
+      "skip_per_slot": 32.8995,
+      "gate_na": 65,
+      "reb_mod": {
+        "fills": 0,
+        "qty_sh": 0.0,
+        "canc": 0
+      },
+      "tnow": {
+        "n": 0,
+        "fee_c": 0.0
+      },
+      "flatten": {
+        "n": 286,
+        "pct_slots": 77.7,
+        "avg_absnet_sh": 9.27,
+        "avg_fee_c": 11.081
+      },
+      "blocks": {},
+      "per_tape": {
+        "W01": 142.3423,
+        "W02": 49.3465,
+        "W03": 17.0605,
+        "W04": 68.8853,
+        "W05": -60.5014,
+        "W06": 29.3688,
+        "W07": 16.9483,
+        "W08": 42.1013
+      },
+      "oos": {
+        "first70": {
+          "n": 258,
+          "ev": 29.4513
+        },
+        "last30": {
+          "n": 110,
+          "ev": 25.087
+        }
+      },
+      "paired": {
+        "delta": -26.8024,
+        "ci90": [
+          -43.1991,
+          -10.3648
+        ],
+        "delta_trading": -15.1174,
+        "ci90_trading": [
+          -31.3498,
+          1.3631
+        ]
+      }
+    },
+    "gp15|pes": {
+      "n_slots": 368,
+      "pnl_per_slot": 4.2021,
+      "ci90": [
+        -15.1707,
+        23.0646
+      ],
+      "dbl_per_slot": 0.5707,
+      "sgl_per_slot": 4.6141,
+      "dodge_cancel_per_slot": 15.4212,
+      "dodge_save_per_slot": 1.0815,
+      "adverse_fill_per_slot": 3.3043,
+      "clamp_per_slot": 1.6875,
+      "rebate_total_c": 3015.55,
+      "skip_per_slot": 58.3261,
+      "gate_na": 0,
+      "reb_mod": {
+        "fills": 0,
+        "qty_sh": 0.0,
+        "canc": 0
+      },
+      "tnow": {
+        "n": 0,
+        "fee_c": 0.0
+      },
+      "flatten": {
+        "n": 289,
+        "pct_slots": 78.5,
+        "avg_absnet_sh": 8.89,
+        "avg_fee_c": 10.188
+      },
+      "blocks": {},
+      "per_tape": {
+        "W01": 61.31,
+        "W02": 32.9202,
+        "W03": -7.5511,
+        "W04": 59.7048,
+        "W05": -11.5326,
+        "W06": -29.8312,
+        "W07": -19.7773,
+        "W08": 3.1234
+      },
+      "oos": {
+        "first70": {
+          "n": 258,
+          "ev": 11.6845
+        },
+        "last30": {
+          "n": 110,
+          "ev": -13.3477
+        }
+      },
+      "paired": {
+        "delta": -50.7471,
+        "ci90": [
+          -73.2703,
+          -27.9551
+        ],
+        "delta_trading": -29.0307,
+        "ci90_trading": [
+          -51.8399,
+          -5.8732
+        ]
+      }
+    },
+    "gp25|pes": {
+      "n_slots": 368,
+      "pnl_per_slot": 33.9765,
+      "ci90": [
+        10.5827,
+        56.3704
+      ],
+      "dbl_per_slot": 0.8614,
+      "sgl_per_slot": 6.9891,
+      "dodge_cancel_per_slot": 23.7962,
+      "dodge_save_per_slot": 1.7527,
+      "adverse_fill_per_slot": 4.9565,
+      "clamp_per_slot": 3.7391,
+      "rebate_total_c": 4593.69,
+      "skip_per_slot": 47.1848,
+      "gate_na": 0,
+      "reb_mod": {
+        "fills": 0,
+        "qty_sh": 0.0,
+        "canc": 0
+      },
+      "tnow": {
+        "n": 0,
+        "fee_c": 0.0
+      },
+      "flatten": {
+        "n": 303,
+        "pct_slots": 82.3,
+        "avg_absnet_sh": 9.47,
+        "avg_fee_c": 11.189
+      },
+      "blocks": {},
+      "per_tape": {
+        "W01": 103.0214,
+        "W02": 64.2584,
+        "W03": 18.6389,
+        "W04": 28.2857,
+        "W05": 50.9969,
+        "W06": 11.9572,
+        "W07": 18.5228,
+        "W08": 22.2511
+      },
+      "oos": {
+        "first70": {
+          "n": 258,
+          "ev": 41.9712
+        },
+        "last30": {
+          "n": 110,
+          "ev": 15.2253
+        }
+      },
+      "paired": {
+        "delta": -20.9726,
+        "ci90": [
+          -43.9885,
+          4.6015
+        ],
+        "delta_trading": -3.5446,
+        "ci90_trading": [
+          -26.5941,
+          21.8648
+        ]
+      }
+    },
+    "gp40|pes": {
+      "n_slots": 368,
+      "pnl_per_slot": 21.4259,
+      "ci90": [
+        -2.8686,
+        48.3407
+      ],
+      "dbl_per_slot": 1.163,
+      "sgl_per_slot": 10.0897,
+      "dodge_cancel_per_slot": 34.1576,
+      "dodge_save_per_slot": 2.5054,
+      "adverse_fill_per_slot": 7.1576,
+      "clamp_per_slot": 7.2745,
+      "rebate_total_c": 6572.97,
+      "skip_per_slot": 32.8995,
+      "gate_na": 0,
+      "reb_mod": {
+        "fills": 0,
+        "qty_sh": 0.0,
+        "canc": 0
+      },
+      "tnow": {
+        "n": 0,
+        "fee_c": 0.0
+      },
+      "flatten": {
+        "n": 326,
+        "pct_slots": 88.6,
+        "avg_absnet_sh": 9.74,
+        "avg_fee_c": 11.13
+      },
+      "blocks": {},
+      "per_tape": {
+        "W01": 149.667,
+        "W02": 36.6638,
+        "W03": 9.8328,
+        "W04": 72.5111,
+        "W05": -23.707,
+        "W06": -40.1031,
+        "W07": -7.8201,
+        "W08": 59.0371
+      },
+      "oos": {
+        "first70": {
+          "n": 258,
+          "ev": 21.7642
+        },
+        "last30": {
+          "n": 110,
+          "ev": 20.6324
+        }
+      },
+      "paired": {
+        "delta": -33.5233,
+        "ci90": [
+          -51.4897,
+          -14.8492
+        ],
+        "delta_trading": -21.4737,
+        "ci90_trading": [
+          -39.6818,
+          -2.7454
+        ]
+      }
+    },
+    "rebg15|pes": {
+      "n_slots": 368,
+      "pnl_per_slot": 24.7901,
+      "ci90": [
+        12.852,
+        37.5971
+      ],
+      "dbl_per_slot": 0.5897,
+      "sgl_per_slot": 4.6304,
+      "dodge_cancel_per_slot": 15.394,
+      "dodge_save_per_slot": 1.0951,
+      "adverse_fill_per_slot": 3.413,
+      "clamp_per_slot": 1.4565,
+      "rebate_total_c": 4012.62,
+      "skip_per_slot": 58.3261,
+      "gate_na": 65,
+      "reb_mod": {
+        "fills": 405,
+        "qty_sh": 2965.0,
+        "canc": 52
+      },
+      "tnow": {
+        "n": 0,
+        "fee_c": 0.0
+      },
+      "flatten": {
+        "n": 76,
+        "pct_slots": 20.7,
+        "avg_absnet_sh": 7.7,
+        "avg_fee_c": 10.525
+      },
+      "blocks": {},
+      "per_tape": {
+        "W01": 78.8885,
+        "W02": 48.3003,
+        "W03": 3.1465,
+        "W04": 55.3119,
+        "W05": -10.4915,
+        "W06": 1.8848,
+        "W07": 25.8535,
+        "W08": 39.4723
+      },
+      "oos": {
+        "first70": {
+          "n": 258,
+          "ev": 24.2326
+        },
+        "last30": {
+          "n": 110,
+          "ev": 26.0976
+        }
+      },
+      "paired": {
+        "delta": -30.159,
+        "ci90": [
+          -53.1523,
+          -6.0578
+        ],
+        "delta_trading": -11.152,
+        "ci90_trading": [
+          -33.9361,
+          13.0482
+        ]
+      }
+    },
+    "rebg25|pes": {
+      "n_slots": 368,
+      "pnl_per_slot": 35.3455,
+      "ci90": [
+        20.7521,
+        50.7571
+      ],
+      "dbl_per_slot": 0.8451,
+      "sgl_per_slot": 7.1359,
+      "dodge_cancel_per_slot": 24.1712,
+      "dodge_save_per_slot": 1.837,
+      "adverse_fill_per_slot": 5.2011,
+      "clamp_per_slot": 2.6984,
+      "rebate_total_c": 5888.27,
+      "skip_per_slot": 47.1848,
+      "gate_na": 65,
+      "reb_mod": {
+        "fills": 492,
+        "qty_sh": 3835.0,
+        "canc": 46
+      },
+      "tnow": {
+        "n": 0,
+        "fee_c": 0.0
+      },
+      "flatten": {
+        "n": 103,
+        "pct_slots": 28.0,
+        "avg_absnet_sh": 8.3,
+        "avg_fee_c": 10.885
+      },
+      "blocks": {},
+      "per_tape": {
+        "W01": 103.0918,
+        "W02": 71.2234,
+        "W03": 44.6681,
+        "W04": 76.7726,
+        "W05": -11.0991,
+        "W06": -11.4403,
+        "W07": 7.34,
+        "W08": 65.4684
+      },
+      "oos": {
+        "first70": {
+          "n": 258,
+          "ev": 37.42
+        },
+        "last30": {
+          "n": 110,
+          "ev": 30.4798
+        }
+      },
+      "paired": {
+        "delta": -19.6037,
+        "ci90": [
+          -41.3491,
+          2.2052
+        ],
+        "delta_trading": -5.6935,
+        "ci90_trading": [
+          -27.1284,
+          16.1666
+        ]
+      }
+    },
+    "rebg40|pes": {
+      "n_slots": 368,
+      "pnl_per_slot": 46.4658,
+      "ci90": [
+        27.3558,
+        64.8851
+      ],
+      "dbl_per_slot": 1.2201,
+      "sgl_per_slot": 10.337,
+      "dodge_cancel_per_slot": 35.1168,
+      "dodge_save_per_slot": 2.5625,
+      "adverse_fill_per_slot": 7.462,
+      "clamp_per_slot": 4.981,
+      "rebate_total_c": 8250.55,
+      "skip_per_slot": 32.8995,
+      "gate_na": 65,
+      "reb_mod": {
+        "fills": 572,
+        "qty_sh": 4595.0,
+        "canc": 34
+      },
+      "tnow": {
+        "n": 0,
+        "fee_c": 0.0
+      },
+      "flatten": {
+        "n": 145,
+        "pct_slots": 39.4,
+        "avg_absnet_sh": 8.72,
+        "avg_fee_c": 10.801
+      },
+      "blocks": {},
+      "per_tape": {
+        "W01": 166.231,
+        "W02": 99.6605,
+        "W03": 10.8249,
+        "W04": 114.4325,
+        "W05": -18.0516,
+        "W06": 7.5999,
+        "W07": 14.017,
+        "W08": 75.9067
+      },
+      "oos": {
+        "first70": {
+          "n": 258,
+          "ev": 49.0505
+        },
+        "last30": {
+          "n": 110,
+          "ev": 40.4034
+        }
+      },
+      "paired": {
+        "delta": -8.4833,
+        "ci90": [
+          -29.2566,
+          11.2217
+        ],
+        "delta_trading": -0.9925,
+        "ci90_trading": [
+          -21.5023,
+          18.5928
+        ]
+      }
+    },
+    "evm|pes": {
+      "n_slots": 368,
+      "pnl_per_slot": 123.4515,
+      "ci90": [
+        103.0038,
+        143.9012
+      ],
+      "dbl_per_slot": 5.106,
+      "sgl_per_slot": 30.4375,
+      "dodge_cancel_per_slot": 0.4891,
+      "dodge_save_per_slot": 0.0,
+      "adverse_fill_per_slot": 0.0,
+      "clamp_per_slot": 0.0,
+      "rebate_total_c": 25106.06,
+      "skip_per_slot": 0.6467,
+      "gate_na": 0,
+      "reb_mod": {
+        "fills": 1527,
+        "qty_sh": 17905.0,
+        "canc": 0
+      },
+      "tnow": {
+        "n": 0,
+        "fee_c": 0.0
+      },
+      "flatten": {
+        "n": 221,
+        "pct_slots": 60.1,
+        "avg_absnet_sh": 6.54,
+        "avg_fee_c": 8.126
+      },
+      "blocks": {},
+      "per_tape": {
+        "W01": 97.3132,
+        "W02": 127.3867,
+        "W03": 155.9142,
+        "W04": 214.7252,
+        "W05": 154.5387,
+        "W06": 55.3272,
+        "W07": 66.2281,
+        "W08": 128.14
+      },
+      "oos": {
+        "first70": {
+          "n": 258,
+          "ev": 133.9553
+        },
+        "last30": {
+          "n": 110,
+          "ev": 98.8154
+        }
+      },
+      "paired": {
+        "delta": 68.5024,
+        "ci90": [
+          40.0708,
+          96.3724
+        ],
+        "delta_trading": 30.1903,
+        "ci90_trading": [
+          1.3008,
+          57.4001
+        ]
+      }
+    },
+    "evmplc|pes": {
+      "n_slots": 368,
+      "pnl_per_slot": 96.9441,
+      "ci90": [
+        79.3901,
+        115.756
+      ],
+      "dbl_per_slot": 3.2337,
+      "sgl_per_slot": 27.2636,
+      "dodge_cancel_per_slot": 0.4321,
+      "dodge_save_per_slot": 0.0,
+      "adverse_fill_per_slot": 0.0,
+      "clamp_per_slot": 0.0,
+      "rebate_total_c": 20492.92,
+      "skip_per_slot": 0.2391,
+      "gate_na": 0,
+      "reb_mod": {
+        "fills": 1408,
+        "qty_sh": 16400.0,
+        "canc": 0
+      },
+      "tnow": {
+        "n": 0,
+        "fee_c": 0.0
+      },
+      "flatten": {
+        "n": 201,
+        "pct_slots": 54.6,
+        "avg_absnet_sh": 7.29,
+        "avg_fee_c": 8.644
+      },
+      "blocks": {},
+      "per_tape": {
+        "W01": 81.1079,
+        "W02": 71.3985,
+        "W03": 104.1144,
+        "W04": 167.9229,
+        "W05": 148.0417,
+        "W06": 54.5627,
+        "W07": 38.7946,
+        "W08": 104.2858
+      },
+      "oos": {
+        "first70": {
+          "n": 258,
+          "ev": 106.8682
+        },
+        "last30": {
+          "n": 110,
+          "ev": 73.6674
+        }
+      },
+      "paired": {
+        "delta": 41.9949,
+        "ci90": [
+          13.7329,
+          68.6278
+        ],
+        "delta_trading": 16.2185,
+        "ci90_trading": [
+          -11.9209,
+          43.0013
+        ]
+      }
+    }
+  },
+  "paired": {
+    "evm-reb": {
+      "delta": 58.7809,
+      "ci90": [
+        35.4008,
+        83.9893
+      ],
+      "n": 368,
+      "delta_F": null
+    },
+    "evm-base": {
+      "delta": 68.5024,
+      "ci90": [
+        39.3806,
+        95.7759
+      ],
+      "n": 368,
+      "delta_F": null
+    },
+    "evm-evmplc": {
+      "delta": 26.5075,
+      "ci90": [
+        12.1565,
+        41.376
+      ],
+      "n": 368,
+      "delta_F": null
+    }
+  },
+  "interval_method": "Original NumPy default_rng, 1000 slot bootstrap replicates; means use unrounded P&L.",
+  "not_recomputed": [
+    "original fill paths",
+    "rebates by slot",
+    "D11/D15 original A+B+F intervals"
+  ]
+}

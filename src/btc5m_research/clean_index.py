@@ -1,8 +1,8 @@
 """Dropout masking for offline analysis.
 
-The venue order-book socket freezes silently. Measured: 8.9% of observed gaps
-exceed 2 seconds, with the longest over 30 seconds, while the external price feeds
-keep flowing normally.
+The venue order-book socket can freeze silently while external feeds continue.
+Historical gap percentages describe elapsed stream time, not a fraction of gap
+counts. See docs/data-engineering.md for the specific archived B05 measurement.
 
 This is not ordinary missing data, and the reason matters. A frozen book looks
 exactly like a *stable* book -- and a stability-gated quoting policy treats a stable
@@ -18,6 +18,7 @@ from __future__ import annotations
 
 from bisect import bisect_right
 from dataclasses import dataclass
+from math import isfinite
 
 DEFAULT_GAP_THRESHOLD_S = 2.0
 """Gaps at or above this length are treated as outages, not quiet markets."""
@@ -29,6 +30,8 @@ class Outage:
     end: float
 
     def __post_init__(self) -> None:
+        if not isfinite(self.start) or not isfinite(self.end):
+            raise ValueError("outage endpoints must be finite")
         if self.end < self.start:
             raise ValueError("outage end precedes its start")
 
@@ -42,8 +45,10 @@ def detect_outages(
     gap_threshold_s: float = DEFAULT_GAP_THRESHOLD_S,
 ) -> list[Outage]:
     """Find inter-event gaps at or above the threshold."""
-    if gap_threshold_s <= 0.0:
+    if not isfinite(gap_threshold_s) or gap_threshold_s <= 0.0:
         raise ValueError("gap threshold must be positive")
+    if any(not isfinite(t) for t in event_times):
+        raise ValueError("event times must be finite")
     outages: list[Outage] = []
     for earlier, later in zip(event_times, event_times[1:]):
         if later < earlier:
@@ -89,3 +94,49 @@ class CleanIndex:
             if high > low:
                 lost += high - low
         return max(0.0, (total - lost) / total)
+
+    def covers_window(self, start: float, end: float) -> bool:
+        """Whether a positive-length interval avoids every outage interior."""
+        return self.coverage(start, end) == 1.0
+
+
+def slot_health(
+    slot_start: float,
+    tape_start: float,
+    tape_end: float,
+    gaps: list[Outage],
+    anchor_start: bool,
+    anchor_end: bool,
+) -> dict[str, object] | None:
+    """D0 health classification from stored gaps, not raw message reconstruction.
+
+    Gap length comparisons are strictly >1.5 and >8 seconds. Tape-edge missing
+    time is included. A window less than half observed is excluded (None).
+    """
+    if not all(isfinite(x) for x in (slot_start, tape_start, tape_end)):
+        raise ValueError("timestamps must be finite")
+    if tape_end <= tape_start:
+        raise ValueError("tape span must be positive")
+    CleanIndex(gaps)  # reject overlaps before they can double-count lost time
+    start, end = slot_start + 10.0, slot_start + 290.0
+    observed_start, observed_end = max(start, tape_start), min(end, tape_end)
+    observed = observed_end - observed_start
+    if observed < 140.0:
+        return None
+    coverage = {}
+    for threshold in (1.5, 8.0):
+        lost = sum(
+            max(0.0, min(g.end, observed_end) - max(g.start, observed_start))
+            for g in gaps if g.duration_s > threshold
+        )
+        coverage[threshold] = max(0.0, (observed - lost) / 280.0)
+    if coverage[1.5] >= 0.95 and anchor_start and anchor_end:
+        category = "FULL"
+    elif coverage[8.0] >= 0.95 and anchor_start and anchor_end:
+        category = "OK8"
+    elif coverage[8.0] >= 0.95:
+        category = "NOANC"
+    else:
+        category = "BAD"
+    return {"cov15": round(coverage[1.5], 4), "cov80": round(coverage[8.0], 4),
+            "a0": anchor_start, "a1": anchor_end, "cls": category}

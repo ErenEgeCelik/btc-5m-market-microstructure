@@ -1,0 +1,137 @@
+{
+  "schema_version": 1,
+  "extraction_date": "2026-09-14",
+  "selection": "All cached feature rows, no outcome or fit-based reselection; slot time then source group order.",
+  "renamed_fields": {
+    "slot": "slot_ms",
+    "log": "source_group P01..P05 = original zero-based log index + 1"
+  },
+  "retained_fields": [
+    "sigma_hat",
+    "range2",
+    "range2_pre",
+    "dvol_pct",
+    "dvol_per_sqrt_s",
+    "ofi_30s",
+    "ofi_60s",
+    "cvd_2m",
+    "ntr"
+  ],
+  "n_rows": 358,
+  "data_file": "data/pricing/slot_features.json",
+  "data_sha256": "a2c601bca47db190556248bc11928944592ec8fdc444c7dd7ceabe929ced63db",
+  "sources": [
+    {
+      "id": "PRICING_FEATURE_CACHE",
+      "path": "logs/ireland_pull/sigma_features.pkl",
+      "sha256": "bad59b200a549e58f6d5b2ff0e59c9e92693acc89d8b97503d6c239bc572efe6"
+    },
+    {
+      "id": "PRICING_FEATURE_EXTRACTOR",
+      "path": "tools/sigma_features.py",
+      "sha256": "8d9dd8747da6561963e7bd122a4808a544d07ef3366aaa5c38fee999fb78bd85"
+    },
+    {
+      "id": "PRICING_FEATURE_SELECTION",
+      "path": "tools/sigma_feature_select.py",
+      "sha256": "2abf07ceb3c499bce632fb8659db2234782bd32203f8fbbb1338369877c5e3de"
+    },
+    {
+      "id": "PRICING_CARD_CODE",
+      "path": "tools/mm_card.py",
+      "sha256": "63d4bea6e8d5769edfc1b1eac77c081b532b0fe4964c6261c1003eb6e0f775de"
+    },
+    {
+      "id": "PRICING_CARD_REPORT",
+      "path": "ui/mm_card.txt",
+      "sha256": "f26475e3b356c95080edc717c6c4225c9f577af0271d8051528c88e719293e05"
+    },
+    {
+      "id": "PRICING_REFINEMENT",
+      "path": "tools/sigma_refine.py",
+      "sha256": "1cc02fb28add921cf675e8e2ed2a4f9e654bc764016e1fb2614c9fcbfcda8210"
+    },
+    {
+      "id": "PRICING_LOGO_CODE",
+      "path": "tools/sigma_cv.py",
+      "sha256": "06cfc20ce119204dd94e99922355c937159d5190fd311fbe66ec54623da3bbd9"
+    },
+    {
+      "id": "PRICING_FEATURE_REPORT",
+      "path": "ui/sigma_features_report.txt",
+      "sha256": "a1d71f0a55f9cfc8713f062587d037948c24a01947a14ee9b518a2efa3234bea"
+    },
+    {
+      "id": "PRICING_MODEL_NOTE",
+      "path": "MM_MODEL.md",
+      "sha256": "114c62808fb37f0b96d48b29c1c009a3df2c47ae9b3637feff173bccc3681fc9"
+    },
+    {
+      "id": "PRICING_A2_NOTE",
+      "path": "whitepaper/A2_sigma_measurement.md",
+      "sha256": "699e9f06c5873822653c384c536b323b066df3e3960b5e7bd686f49afdb14222"
+    },
+    {
+      "id": "PRICING_A2_Q12",
+      "path": "tools/sigma_a2_q12.py",
+      "sha256": "c03dec438cbd72d4bbcdba1c1b33faec9e795bea6cd451044187f0f121f30c95"
+    },
+    {
+      "id": "PRICING_A2_Q3",
+      "path": "tools/sigma_a2_pnl.py",
+      "sha256": "d3acd16b30deca6599a7b7d4fbc98ecef83279af9612a0d4dfb3f248f61a7473"
+    },
+    {
+      "id": "PRICING_MARTINGALE_CODE",
+      "path": "tools/martingale_test.py",
+      "sha256": "dfd3c32dc0709a159a7dda72c851e62d3fbba03e09cf4d7801d7f8fea0bfc076"
+    },
+    {
+      "id": "PRICING_HYBRID_NOTE",
+      "path": "whitepaper/03_fair_engine.md",
+      "sha256": "909ace1cd433aff6ad0ab3351b97b5ae14a084e6eac61f77c6777a2a25a1b7ab"
+    },
+    {
+      "id": "PRICING_HYBRID_TEST",
+      "path": "tools/hybrid_fair_test.py",
+      "sha256": "7645965bb9f6b483e10222eac27171b34aead5e4ffe3c8ab74fcbd96ca8f313e"
+    },
+    {
+      "id": "PRICING_HYBRID_CLASS",
+      "path": "live/fair_engine.py",
+      "sha256": "ea7a9c843d5feaba619b0fe77cc6a6987c9b7bd52a26a437f795bbd76bb1f087"
+    }
+  ],
+  "source_groups": [
+    {
+      "id": "P01",
+      "n": 136,
+      "first_slot_utc": "2026-05-27T23:10:00+00:00",
+      "last_slot_utc": "2026-05-28T11:05:00+00:00"
+    },
+    {
+      "id": "P02",
+      "n": 91,
+      "first_slot_utc": "2026-05-27T12:40:00+00:00",
+      "last_slot_utc": "2026-05-27T20:35:00+00:00"
+    },
+    {
+      "id": "P03",
+      "n": 38,
+      "first_slot_utc": "2026-06-09T12:05:00+00:00",
+      "last_slot_utc": "2026-06-09T15:20:00+00:00"
+    },
+    {
+      "id": "P04",
+      "n": 38,
+      "first_slot_utc": "2026-06-05T21:25:00+00:00",
+      "last_slot_utc": "2026-06-06T00:35:00+00:00"
+    },
+    {
+      "id": "P05",
+      "n": 55,
+      "first_slot_utc": "2026-05-26T16:50:00+00:00",
+      "last_slot_utc": "2026-05-26T21:35:00+00:00"
+    }
+  ]
+}

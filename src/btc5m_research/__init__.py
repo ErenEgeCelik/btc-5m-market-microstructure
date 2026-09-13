@@ -6,4 +6,5 @@ this package -- see ``SECURITY.md`` for why that is a structural choice rather
 than a disabled feature.
 """
 
-__all__ = ["accounting", "clean_index", "ev_chain", "fair", "queue", "quote_model"]
+__all__ = ["accounting", "clean_index", "ev_chain", "fair", "microstructure", "policy",
+           "pricing_estimation", "queue", "quote_model", "risk"]

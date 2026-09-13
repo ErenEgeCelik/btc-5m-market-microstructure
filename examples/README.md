@@ -1,8 +1,17 @@
-# Synthetic walkthrough
+# Runnable research examples
 
-Run `python -B examples/walkthrough.py` from the repository root. The JSONL rows are hand-authored
-synthetic timestamps, venue labels and prices. A fixed 49-dollar venue offset illustrates why
-alternating last ticks cannot be treated as a single signal stream. This is not recorded market data.
+Run each script from the repository root. See [Reproducibility](../REPRODUCIBILITY.md) for
+requirements, audits and the distinction between recorded and synthetic inputs.
 
-Expected checks: three Binance ticks; causal reference 100001; zero fill before activation; one share
-filled after activation behind three shares of modeled queue. The probability is illustrative.
+| Entry point | Question and input |
+|---|---|
+| `walkthrough.py` | Causal feed selection and maker activation on hand-authored timestamps; a synthetic $49 venue basis illustrates false merged-feed jumps |
+| `pricing_walkthrough.py` | Synthetic transformed-schedule recovery and scale-model comparison on 358 archived feature rows |
+| `risk_walkthrough.py` | Binary terminal risk and exact frozen-inventory indifference values on synthetic positions |
+| `microstructure_walkthrough.py` | Arrival clocks, feed/book validity, activation and queue assumptions |
+| `policy_walkthrough.py` | Book-priced one-step decisions from archived calibration and declared synthetic states |
+
+The original tape demonstration retains its checks: three Binance ticks, causal reference 100001,
+zero fill before activation and one share filled after activation behind three modeled queue shares.
+It contains no recorded market data. The pricing and policy data guides describe the selected real
+research records; none of these examples submits orders or reports realized trading returns.

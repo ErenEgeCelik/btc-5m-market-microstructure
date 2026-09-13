@@ -7,6 +7,7 @@ do not establish profitability or guarantee real-world queue bounds.
 from __future__ import annotations
 
 from dataclasses import dataclass, field
+from math import isfinite
 
 MAKER_POST_LATENCY_S = 0.050
 """Measured maker order activation: 24-50 ms. The decision cell uses 50 ms."""
@@ -33,6 +34,14 @@ class RestingOrder:
     filled: float = field(default=0.0, init=False)
     cancel_requested_at: float | None = field(default=None, init=False)
 
+    def __post_init__(self) -> None:
+        values = (self.size, self.queue_ahead, self.placed_at,
+                  self.post_latency_s, self.cancel_latency_s)
+        if not all(isfinite(v) for v in values):
+            raise ValueError("order parameters must be finite")
+        if self.size <= 0 or min(self.queue_ahead, self.post_latency_s, self.cancel_latency_s) < 0:
+            raise ValueError("size must be positive; depth and delays nonnegative")
+
     @property
     def active_from(self) -> float:
         return self.placed_at + self.post_latency_s
@@ -51,7 +60,7 @@ class RestingOrder:
 
     def consume(self, now: float, volume: float) -> float:
         """Apply ``volume`` of market flow at this price level; return the new fill."""
-        if volume < 0.0:
+        if not isfinite(now) or not isfinite(volume) or volume < 0.0:
             raise ValueError("volume cannot be negative")
         if not self.is_live(now):
             return 0.0
@@ -73,7 +82,10 @@ def fill_time_brackets(
     queue_ahead: float,
     active_from: float,
 ) -> tuple[float | None, float | None]:
-    """Pessimist and optimist fill times for a level with ``queue_ahead`` in front.
+    """Pessimist and optimist queue-depletion times at a fixed price level.
+
+    These times mark depletion of depth ahead, not completion of our own clip.
+    Use RestingOrder for own-size and partial-fill accounting.
 
     ``events`` are ``(timestamp, traded_volume, size_drop)`` triples at our price.
     The optimist arm credits the part of a size drop that trades do not explain.
@@ -82,6 +94,15 @@ def fill_time_brackets(
     which matters: an adversary allowed to choose per moment inside an
     unconstrained bracket produces a band so wide that it excludes nothing.
     """
+    if not isfinite(queue_ahead) or queue_ahead < 0 or not isfinite(active_from):
+        raise ValueError("depth must be nonnegative and activation finite")
+    previous = float("-inf")
+    for timestamp, traded, size_drop in events:
+        if not all(isfinite(v) for v in (timestamp, traded, size_drop)):
+            raise ValueError("event values must be finite")
+        if timestamp < previous or traded < 0 or size_drop < 0:
+            raise ValueError("events must be ordered, volumes nonnegative")
+        previous = timestamp
     consumed_pes = 0.0
     consumed_opt = 0.0
     t_pes: float | None = None

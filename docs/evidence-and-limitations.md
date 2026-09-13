@@ -1,17 +1,39 @@
-# Evidence and limitations
+# Evidence coverage
 
-The machine-readable [claim register](../evidence/claim_ledger.yaml) gives the public claims and their
-coverage. The D12 input is an aggregate estimator output. Its integrity hash ties the verifier result
-to those bytes, but cannot authenticate the original collection or establish statistical validity.
+The [contribution map](../CONTRIBUTIONS.md) connects the research to methods and code; the
+[claim register](../evidence/claim_ledger.yaml) records what the evidence supports. Explanatory
+pricing fit, forward prediction, conditional book response, modeled execution value and realized
+returns have distinct targets.
 
-Publicly runnable: reference functions, synthetic walkthrough, component tests and the aggregate
-decision-rule verifier. Not publicly reconstructed here: raw-tape event selection, regression fits,
-virtual-fill estimation, placebos, chronological partition construction and clustered bootstraps.
-The stored figures therefore remain author-reported empirical evidence with inspectable summaries.
+## Available to inspect and rerun
 
-The pricing result measures market mids rather than participant quotes. Queue priority is inferred.
-Contract-rule archival coverage is incomplete. Positive replay results have execution uncertainty.
-Broken paper runs yield no clean economic conclusions. No live-profitability claim is made.
+The public release contains a 358-row pricing-feature study, frozen mechanics summaries, 368
+recorded per-slot simulator outputs, a policy calibration table, reference implementations and
+synthetic demonstrations. [Reproduction instructions](../REPRODUCIBILITY.md) distinguish input
+refitting, recorded-output rechecks, aggregate audits and analytical examples.
 
-The paper is a working manuscript for methodological feedback. Additional data releases can increase
-reproducibility without changing the distinction between historical results and newly run validation.
+The source records pin inspected private files, identify important functions and document extraction.
+They are provenance for the author's release, not publicly accessible upstream raw data. Current
+source hashes can identify inspected code that evolved after an older output was produced; such
+cases are labeled instead of assigning a false producer version.
+
+## Scope of interpretation
+
+| Evidence | Appropriate interpretation | Remaining question |
+|---|---|---|
+| Brownian-probit and feature fits | A measured description of market mids or implied scale | Causal feature availability, independent model selection, probability calibration |
+| Feed/book event aggregates | Conditional direction, timing and confirmation under a specified selection | Effects of receiver clocks, conditioning, health coverage and sampling |
+| Queue and fill proxies | Sensitivity to explicit depletion and cancellation conventions | Real queue rank, hidden priority and quantity-dependent access |
+| Paired policy output recheck | Differences between historical simulated policies on the same slots | Whether modeled fills and inventory handling transfer to execution |
+| D12 negative fresh EV(0) | Rejection of the specified static-front candidate within the recorded model | No blanket rejection of every maker policy |
+| Broken paper diagnostics | Harness, data and accounting faults requiring correction | Clean live strategy economics cannot be inferred from that run |
+
+Positive tape results remain model-dependent upper bounds or execution-test targets. The
+`pes`/`opt` queue conventions are not mathematically proven bounds on real fills. In particular,
+the historical rebalancing simulator did not establish fill probability for the full requested
+quantity. Slot bootstrapping does not remove dependence across adjacent slots.
+
+The empirical programme uses historical point settlement. Current contract rules and fee schedules
+are outside its scope. The public package does not identify a market participant's private model
+or claim a current tradable edge. The [experiment history](negative-results.md) retains the
+positive design observations as well as controls, revisions and rejected candidates.

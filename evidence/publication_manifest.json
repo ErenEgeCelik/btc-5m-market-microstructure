@@ -1,0 +1,139 @@
+{
+  "version": 1,
+  "release_date": "2026-09-14",
+  "baseline_commit": "98a8bb39eff5d4871eb6f849a181b6d41e25a125",
+  "scope": "Historical pricing, mechanics and policy publication. Earlier paper retained.",
+  "package_provenance": [
+    "data/pricing/manifest.json",
+    "evidence/pricing_experiments.json",
+    "evidence/mechanics_experiments.json",
+    "evidence/policy_experiments.json"
+  ],
+  "theory_sources": [
+    {
+      "private_source_path": "whitepaper/09_theory.md",
+      "sha256_inspected_bytes": "2ed536a280ffcd4da210b9c94c16926546252801a51aa8b26938505644784ed1"
+    },
+    {
+      "private_source_path": "whitepaper/03_fair_engine.md",
+      "sha256_inspected_bytes": "909ace1cd433aff6ad0ab3351b97b5ae14a084e6eac61f77c6777a2a25a1b7ab"
+    },
+    {
+      "private_source_path": "MM_MODEL.md",
+      "sha256_inspected_bytes": "114c62808fb37f0b96d48b29c1c009a3df2c47ae9b3637feff173bccc3681fc9"
+    },
+    {
+      "private_source_path": "MDP_EV_DERIVATION.md",
+      "sha256_inspected_bytes": "174f04b06ea41370a137088a32245128a3775f9cab4e0921e281d99bacbb33f4"
+    },
+    {
+      "private_source_path": "whitepaper/FELSEFE_BRIEF_CLAUDE_CODE.md",
+      "sha256_inspected_bytes": "78184f583e9e883d401c7929c787a2688d422c1ea649233c32eb594d8c3e3ab9"
+    }
+  ],
+  "theory_source_note": "Inspected private source fingerprints, not publicly available upstream files or proof of historical producer revision.",
+  "public_files": [
+    {
+      "path": "data/mechanics/b05_health_excerpt.json",
+      "sha256": "0e3f691e79bb218ab7c02b940f249dd961484e547638a01a85859b37566414ad",
+      "bytes": 42961
+    },
+    {
+      "path": "data/mechanics/links_d14.json",
+      "sha256": "b65f6623bcad3b6936f7db1ad869d131c2492e1a812485bc3e4445e1a7f5518f",
+      "bytes": 7585
+    },
+    {
+      "path": "data/mechanics/links_d4.json",
+      "sha256": "ff5ca130f2e784ff24891fa3c28dd4959926f2229c9eef8b25b686c769a83548",
+      "bytes": 1307
+    },
+    {
+      "path": "data/mechanics/links_d4b.json",
+      "sha256": "60c18c87c3249431eca13a0b7a40e0bada2e3b67df7a0228a27cac4796af10a3",
+      "bytes": 4521
+    },
+    {
+      "path": "data/mechanics/links_d7.json",
+      "sha256": "ceefde182fbbd661aac31890469b84e77a465e8a0209287bdbe17e0b8075f886",
+      "bytes": 9922
+    },
+    {
+      "path": "data/mechanics/README.md",
+      "sha256": "a0761cb4e9309b9c659f6f927dfa5eb4827956814b518c662ec1d7a8226aef5d",
+      "bytes": 2336
+    },
+    {
+      "path": "data/policy/frozen_calibration.json",
+      "sha256": "efedbe254c35a165ef47718616c7a3359ae8050ced4442e4d392cba460e69e94",
+      "bytes": 1594
+    },
+    {
+      "path": "data/policy/README.md",
+      "sha256": "45cae2cef09f305334ff82647abb8c1b3243f92dc6c3cae6117900ea58436291",
+      "bytes": 2321
+    },
+    {
+      "path": "data/policy/w_archive.json",
+      "sha256": "1dea42462c3af5879afea78c9b6c9e43b573dae335202ac3ba88af169cdbbcb5",
+      "bytes": 22655
+    },
+    {
+      "path": "data/policy/w_slot_pnl.csv",
+      "sha256": "db0b3a19116b60948b0635923b98849ba9e0ed0033dc1d468c54bd8269e4f712",
+      "bytes": 17232
+    },
+    {
+      "path": "data/pricing/manifest.json",
+      "sha256": "4b7ecffa51506c17952427033dc2a2ca180faa97b3df4a32b869b906aac8697d",
+      "bytes": 4171
+    },
+    {
+      "path": "data/pricing/README.md",
+      "sha256": "8079e67ec59cfa9cd6b9da1a1fb7f643652de67d187c44131ff806d22040f71d",
+      "bytes": 2452
+    },
+    {
+      "path": "data/pricing/slot_features.json",
+      "sha256": "a2c601bca47db190556248bc11928944592ec8fdc444c7dd7ceabe929ced63db",
+      "bytes": 128073
+    },
+    {
+      "path": "data/README.md",
+      "sha256": "3b1d9ea871ae8dd86bd83436a6748e6b11022dc8e9848348b7e927c95c2fb0a3",
+      "bytes": 894
+    },
+    {
+      "path": "evidence/links_d12.json",
+      "sha256": "428ba2de8fe47fc1e867cc8fcbee706b9fd23f16e5eceb9d8c2db1efd5c48010",
+      "bytes": 20039
+    },
+    {
+      "path": "evidence/d12_public_verdict.json",
+      "sha256": "0018a6d410cab6512314b80374b1c4db761af81f24fa9ccd427897efad5cc58f",
+      "bytes": 3826
+    },
+    {
+      "path": "evidence/pricing_experiments.json",
+      "sha256": "d64377d6dea97fff4591bc60965cdcf9889902020e938bf7049b786dbb52e995",
+      "bytes": 21807
+    },
+    {
+      "path": "evidence/mechanics_experiments.json",
+      "sha256": "137770e1d90da4e74a95d98137c0baf2c2977b0c8f43c5cfce5f47e19e1421b0",
+      "bytes": 5734
+    },
+    {
+      "path": "evidence/policy_experiments.json",
+      "sha256": "f52f135518634e87facf7e1811893596cf9c929ffefbb1c95d7c7ca01beb8091",
+      "bytes": 5369
+    }
+  ],
+  "publication_additions": [
+    "Exact Bernoulli CARA diagnostic and tests",
+    "Feasible joint fill probabilities and explicit unknown/zero inputs",
+    "Archived feature refit and recorded-slot paired bootstrap",
+    "Reconciled data availability, latency and version descriptions"
+  ],
+  "primary_reference": "https://math.nyu.edu/inmemoriam/avellaneda/HighFrequencyTrading.pdf"
+}
