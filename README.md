@@ -65,7 +65,7 @@ Start with the [working paper](paper/manuscript.md), or follow the methods:
 ## Author
 
 [Eren Ege Çelik](https://www.erenege.dev), independent quantitative researcher.
-Related work: [weather markets](https://github.com/ErenEgeCelik/weather-kalman-replay).
+Related work: [weather markets](https://github.com/ErenEgeCelik/weather-market-research).
 Questions about methods, assumptions and reproducibility are welcome through repository issues.
 
 Code and documentation are available under the [MIT license](LICENSE).
