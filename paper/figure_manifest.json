@@ -1,0 +1,99 @@
+{
+  "version": 1,
+  "evidence_revision": "6db010205b3aa3b8b4ee1d5715e06c47de8023b7",
+  "scope": "Fixed public-input rechecks and archived-summary plots; no new strategy search or raw-tape reconstruction.",
+  "inputs": {
+    "data/pricing/slot_features.json": "a2c601bca47db190556248bc11928944592ec8fdc444c7dd7ceabe929ced63db",
+    "data/mechanics/links_d4.json": "ff5ca130f2e784ff24891fa3c28dd4959926f2229c9eef8b25b686c769a83548",
+    "data/policy/w_slot_pnl.csv": "db0b3a19116b60948b0635923b98849ba9e0ed0033dc1d468c54bd8269e4f712",
+    "data/policy/frozen_calibration.json": "efedbe254c35a165ef47718616c7a3359ae8050ced4442e4d392cba460e69e94",
+    "data/policy/w_archive.json": "1dea42462c3af5879afea78c9b6c9e43b573dae335202ac3ba88af169cdbbcb5"
+  },
+  "figures": {
+    "pricing-scale": {
+      "file": "figures/pricing-scale.png",
+      "sha256": "2e3fa607b5ab49d205f09cbd890f1758aaf2d3df3a4e8495e07883be19b7ea84",
+      "n_slots": 358,
+      "n_logs": 5,
+      "lines": "Full-table OLS including intercept; all 358 cached rows.",
+      "validation": "Leave-one-log-out, not chronological OOS.",
+      "features": [
+        "range2",
+        "range2_pre"
+      ]
+    },
+    "book-confirmation": {
+      "file": "figures/book-confirmation.png",
+      "sha256": "33b261947f46b575180c4537118d86b1a05ea10d69edbb147f27e881203db20f",
+      "n_events": 13782,
+      "threshold_usd_over_200ms": 5,
+      "horizons_seconds": [
+        0.2,
+        0.4,
+        0.7,
+        1.5,
+        3.0
+      ],
+      "conditional": [
+        0.3141,
+        0.6523,
+        0.8014,
+        0.9491,
+        1.0
+      ],
+      "unconditional_approximation": [
+        0.26492056204500003,
+        0.550167725635,
+        0.67592275843,
+        0.8004969927950001,
+        0.8434274500000001
+      ],
+      "placebo_unconditional_approximation": [
+        0.10598086069200001,
+        0.16688062698,
+        0.22998567728400002,
+        0.3371539986,
+        0.42409308
+      ],
+      "uncertainty": "Unavailable in archived summaries; lines join stored points only."
+    },
+    "policy-comparison": {
+      "file": "figures/policy-comparison.png",
+      "sha256": "d56e54f9786c126e1daa700ee0eab083a95f9b6517edc000e9343daddc23f50c",
+      "n_common_slots": 368,
+      "ci_method": "paired slot bootstrap; 2000 replicates; seed=17; stdlib RNG",
+      "paired": {
+        "evm-base": {
+          "mean_cents_per_slot": 68.50237228260869,
+          "ci90": [
+            39.34663817934782,
+            95.16519578804348
+          ]
+        },
+        "evm-reb": {
+          "mean_cents_per_slot": 58.780877717391306,
+          "ci90": [
+            33.05043301630435,
+            82.62026236413043
+          ]
+        },
+        "evm-evmplc": {
+          "mean_cents_per_slot": 26.507434782608694,
+          "ci90": [
+            12.625053260869562,
+            40.80429592391304
+          ]
+        },
+        "reb-base": {
+          "mean_cents_per_slot": 9.721494565217393,
+          "ci90": [
+            -4.721674320652171,
+            23.72154741847826
+          ]
+        }
+      },
+      "interpretation": "Recorded simulator outputs; proxy fills, unequal quantity treatment and retrospective decision availability remain limitations."
+    }
+  },
+  "generator_sha256": "1f61ccc0980532f9973a62856ae3230ca0111acbea5a8f40b7153d6f8ab6ebe4"
+}

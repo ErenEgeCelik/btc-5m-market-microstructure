@@ -74,6 +74,8 @@ event selection, virtual fills, placebo estimates or original confidence interva
 Likewise the compact pricing cache does not prove original feature availability, and the W
 slot outputs do not identify real queue priority. Details accompany each experiment.
 
-The earlier working manuscript is retained in `paper/`. Its original package description and
-test count refer to that earlier release; the expanded repository documentation governs the
-current code and input coverage until the paper's next revision.
+The [working paper v0.2](paper/manuscript.md) integrates the expanded pricing, mechanics and policy
+methods. Its technical evidence is pinned to revision `6db010205b3aa3b8b4ee1d5715e06c47de8023b7`.
+[Document build instructions](paper/README.md) describe the three figures, their provenance and
+Markdown-to-PDF generation. Rebuilding the document does not reconstruct unpublished observations
+or turn software validation into statistical validation.

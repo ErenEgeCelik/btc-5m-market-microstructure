@@ -1,0 +1,4 @@
+node_modules/
+*.html
+*.build.json
+__pycache__/
