@@ -124,7 +124,7 @@ The shared v2 client also has `pre_sign_buy`/`fire` helpers that move build/sign
 submission. **The inspected crypto maker does not call those helpers**: its post-only quote is built
 and signed when submitted. Likewise, `start_keepalive` exists in the client, but no call from the
 inspected `mm_maker` establishes that its periodic warm connection task was running. The public
-[weather execution example](https://github.com/ErenEgeCelik/weather-market-research/blob/main/examples/execution_walkthrough.py)
+[weather execution example](https://github.com/ErenEgeCelik/weather-daily-max-markets/blob/main/examples/execution_walkthrough.py)
 demonstrates the preparation/submission separation with injected fake transports and operation counts.
 It is shared engineering provenance, not a measured speedup of this crypto maker.
 

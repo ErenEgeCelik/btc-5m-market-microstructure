@@ -47,7 +47,7 @@ const components = {
       const rel = path.relative(root, target).split(path.sep).join('/');
       // Technical references pin the evidence release; paper references follow its own revision.
       const revision = rel.startsWith('paper/') ? 'main' : evidenceRevision;
-      href = `https://github.com/ErenEgeCelik/btc-5m-market-microstructure/blob/${revision}/${rel}`;
+      href = `https://github.com/ErenEgeCelik/crypto-updown-prediction-market-research/blob/${revision}/${rel}`;
     }
     return React.createElement('a', { href }, children);
   },

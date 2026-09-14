@@ -1,4 +1,4 @@
-# BTC Five-Minute Markets
+# Crypto Up/Down Prediction-Market Research
 
 **Pricing models, order-book measurements and inventory decisions in crypto up/down markets.**
 
@@ -6,6 +6,8 @@ I studied how a BTC price feed becomes a short-horizon binary-market price, and 
 can inform a maker's decisions once queue access, latency and inventory enter the problem.
 The work combines statistical model construction, event-driven data analysis and policy evaluation
 in historical Polymarket five-minute markets during May-July 2026.
+The current evidence covers BTC. A positive-EV strategy has not been validated in live trading;
+favorable policy results in this repository remain conditional on their replay assumptions.
 
 ## What I built and investigated
 
@@ -98,5 +100,5 @@ No venue credentials or order client are required.
 ## Author
 
 [Eren Ege Çelik](https://www.erenege.dev), independent quantitative researcher.
-Related work: [weather prediction markets](https://github.com/ErenEgeCelik/weather-market-research).
+Related work: [weather prediction markets](https://github.com/ErenEgeCelik/weather-daily-max-markets).
 Methodological feedback is welcome through repository issues. [MIT license](LICENSE).

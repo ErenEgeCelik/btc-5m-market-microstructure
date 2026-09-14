@@ -16,7 +16,7 @@ journal or peer reviewed. Formal submission will be considered after author revi
 ## Evidence and version
 
 The technical evidence baseline is
-[`6db0102`](https://github.com/ErenEgeCelik/btc-5m-market-microstructure/tree/6db010205b3aa3b8b4ee1d5715e06c47de8023b7).
+[`6db0102`](https://github.com/ErenEgeCelik/crypto-updown-prediction-market-research/tree/6db010205b3aa3b8b4ee1d5715e06c47de8023b7).
 That release passed 126 tests, 14 example/audit invocations and 19 input hash checks in a clean
 checkout. The paper release changes exposition, figures and document generation; it retains
 the baseline's research code, tests and data.

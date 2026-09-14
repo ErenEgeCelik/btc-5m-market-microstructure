@@ -3,6 +3,8 @@
 This record connects my historical research questions to inspectable implementations and evidence.
 The public package is a curated extraction of a larger research codebase, with explicit corrections
 and compact input releases. Publication-only explanatory additions are identified separately.
+The current study covers historical BTC five-minute contracts. It has not established a positive-EV
+strategy in live trading; policy simulation and execution diagnostics have their stated scopes.
 
 ## Contribution map
 
