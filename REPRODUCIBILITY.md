@@ -74,7 +74,7 @@ event selection, virtual fills, placebo estimates or original confidence interva
 Likewise the compact pricing cache does not prove original feature availability, and the W
 slot outputs do not identify real queue priority. Details accompany each experiment.
 
-The [working paper v0.2](paper/manuscript.md) integrates the expanded pricing, mechanics and policy
+The [working draft v0.3](paper/manuscript.md) integrates the expanded pricing, mechanics and policy
 methods. Its technical evidence is pinned to revision `6db010205b3aa3b8b4ee1d5715e06c47de8023b7`.
 [Document build instructions](paper/README.md) describe the three figures, their provenance and
 Markdown-to-PDF generation. Rebuilding the document does not reconstruct unpublished observations

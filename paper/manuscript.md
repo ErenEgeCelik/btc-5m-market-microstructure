@@ -1,63 +1,61 @@
-# Pricing and Market Making in BTC Five-Minute Prediction Markets
+# From Price Information to Maker Decisions in BTC Five-Minute Markets
 
 **Eren Ege Çelik**\
 Independent quantitative researcher\
-Working paper, version 0.2 - 14 September 2026
+Working draft for feedback, version 0.3 - 14 September 2026
 
 ## Abstract
 
-This paper studies the connection between price formation and executable decisions in historical
-BTC five-minute binary markets. The research combines Brownian-probit pricing, asynchronous feed
-and order-book measurements, and inventory-aware policy evaluation. A transformed price regression
-describes much of the within-slot variation, while a separate 358-record feature study shows how
-strongly the apparent predictability of the fitted scale depends on feature timing. In a historical
-event study, 87.05% of non-fizzled first book responses agree with Binance moves of at least \$5
-over 200 ms; the
-median delay among correct confirmations is 275 milliseconds. These mechanical relationships do
-not determine the value of an order without a fill and inventory model. A four-outcome EV
-decomposition connects joint fills, conditional drift, rebates and unmatched exposure. Rechecking
-368 recorded simulator-output slots gives an EV-policy improvement over the baseline of 68.50
-cents per slot, with a paired 90% interval of [39.35, 95.17], subject to unresolved queue, quantity
-and decision-availability assumptions. A distinct static front-quoting candidate is rejected on
-fresh data at -0.9845 cents per eligible decision moment. The contribution is the empirical and
-engineering connection between these layers, with explicit model revisions and reproducible
-components. The results do not establish live profitability or transfer to an averaged settlement payoff.
+Can a maker convert observed BTC price information into positive expected trading value once
+order activation, queue access and inventory are accounted for? This paper examines that question
+in historical five-minute binary markets. Brownian-probit estimation describes price formation,
+while a 358-record feature study distinguishes contemporaneous explanation from information
+available at entry. The book response is strongly directional: after Binance moves of at least
+\$5 over 200 ms, 87.05% of non-fizzled first responses agree, with a median correct-confirmation
+delay of 275 ms. Yet a static front-quoting candidate evaluated with 50 ms order activation has
+fresh-data expected value of -0.9845 cents per eligible moment, with a 90% interval of
+[-1.626, -0.364], even before an unmeasured additional fill cost is charged. A joint-fill EV
+decomposition explains why paired fills and unmatched inventory require different decisions.
+An inventory-aware policy improves on its baseline by 68.50 cents per slot across 368 recorded
+simulator outputs, but queue, quantity and online decision-availability assumptions remain
+unresolved. The evidence identifies both a rejected quoting rule and conditional inventory-policy
+value. Its central implication is that a strong price-to-book relationship leaves execution and
+inventory as separate empirical questions. The study does not establish live profitability or
+transfer its point-settlement results to an averaged payoff.
 
 **Keywords:** binary contracts; market microstructure; market making; volatility estimation;
 inventory risk; execution modeling; prediction markets.
 
 ## 1. Introduction
 
-A five-minute binary contract compresses a continuous underlying-price process into a one-dollar
-terminal event. Its short horizon makes a compact diffusion model useful, but also makes the
-difference between a statistical relationship and an executable opportunity consequential. A
-price-feed move may explain a subsequent book response while arriving too late to obtain the
-assumed fill. A quote may earn a favorable short markout while leaving inventory exposed for
-minutes. A model may fit market prices without improving on their outcome probabilities.
+A maker observing a BTC price move faces a sequence of decisions: whether a resting quote has
+become exposed, whether a replacement can reach the book in time, and what to do if only one
+side fills. A five-minute binary payoff makes these questions particularly connected. The same
+underlying displacement can change the contract probability, attract a fill and leave inventory
+whose terminal risk differs from that of the underlying asset.
 
-The motivating question is therefore how a measured description of prices becomes a decision
-about when and where to expose inventory. The research was conducted on historical Polymarket
-BTC up/down contracts during May-July 2026. Pricing investigations preceded the later
-microstructure and policy programme. Their samples overlap neither perfectly nor uniformly, and
-their results have different units. This paper connects them without pooling them into one
-performance claim.
+The research question is whether observed price information retains positive maker value after
+those execution and inventory constraints are included. The empirical answer has two parts.
+A strong directional book response coexists with the rejection of a specific static front-quoting
+rule on fresh data. Inventory-aware decisions improve recorded simulator outcomes, but the
+replay leaves material questions about accessible fills and decision times. These findings explain
+why identifying the direction of repricing does not, by itself, determine a profitable quote.
 
-Three contributions organize the study. First, the pricing investigation separates feed choice,
-anchor displacement, link function and pricing scale. It documents the construction of constant,
-feature-dependent and hybrid reference models, including the difference between explaining an
-implied scale and predicting future underlying volatility. Second, the event-measurement layer
-separates receiver-clock availability, feed basis, recorder health, book validity and hypothetical
-queue access. Third, the policy layer translates those measurements into explicit joint-fill
-rewards and inventory constraints, then compares historical policies and examines failures of
-their execution representation.
+The study follows one chain of evidence. Pricing estimation establishes what the feed explains
+and which inputs are available when a decision is made. Arrival-clock and queue measurements
+then establish how a candidate order encounters the observed market. Finally, joint-fill EV
+and binary inventory accounting connect the resulting exposure to a policy. The contribution
+is this measured connection and its documented failure points; the Gaussian probability map
+and the underlying utility framework are standard.
 
-The analysis preserves useful positive findings and the revisions that qualified them. The aim is
-to explain which component supplies information and which additional assumption is needed to turn
-it into modeled income. The Gaussian probability map is standard; the contribution lies in its
-empirical construction and its connection to the measured decision problem. The public release
-contains reference code, selected recorded features, archived mechanics summaries and per-slot
-simulator outputs. It provides several levels of reproducibility rather than claiming a complete
-reconstruction of unpublished raw tapes.
+The work covers historical Polymarket BTC up/down markets during May-July 2026. The pricing,
+response and policy investigations use different sampling units and partly different periods.
+They support the chain of reasoning without forming a single pooled profitability test.
+Sections 3-4 define the available price information, Section 5 examines execution access,
+Sections 6-7 derive the inventory decision, and Section 8 evaluates the historical candidates.
+Implementation versions and campaign history are collected in Appendix C. The public repository
+provides reference code, selected features and recorded outputs, with the reproduction boundary
+for each result stated in Appendix B.
 
 ### 1.1 Related work and the scope of comparison
 
@@ -141,6 +139,10 @@ was adaptive across experiments. It was not a single globally preregistered stra
 Each reported comparison retains its own selection procedure and interpretation.
 
 ## 3. Constructing the pricing model
+
+The first step is to determine what the observed feed explains about the contract price. A model
+that reconstructs that price can inform a maker's response to new information; using it as an
+outcome forecast requires a separate evaluation.
 
 ### 3.1 A diffusion probability and a fitted price description
 
@@ -329,19 +331,15 @@ The gap starts at its first observation, so its initial high-pass output is zero
 slot; the slow basis persists. The scalar $h_t$ is measured in cents per share and supplies
 timing/direction state, while executable quote levels remain book-derived.
 
-The historical 478-slot diagnostic reports hybrid-v2 level/change correlations of 0.959/0.414,
-compared with 0.954/0.028 for tick-rebased v1. That diagnostic used a fixed per-tick offset
-weight of 0.05; the implemented class used elapsed-time weights, and its separate 60-slot replay
-reported level correlation 0.928. The versions should not be combined into one experiment.
-
-The inspected later class already contains v3 refinements: reference differences use a two-second
-lagged feed, with a current-feed fallback, and scale becomes $1.25+0.50\,RV$. Scale updates
-are cached on accepted samples at least one second apart, retaining at most 901 samples and
-requiring 120 before replacing the initial value. Under sparse arrivals, that buffer spans
-more than 15 minutes. Reading fair value uses buffers and scalar state; it does not refit
-a regression or rescan the volatility history on every quote decision.
+The historical v2/v3 implementations use different offset and volatility updates. Their descriptive
+comparisons, sample counts and cache behavior are retained in Appendix C.1. They do not constitute
+a common out-of-sample pricing experiment.
 
 ## 5. From feed events to observable book mechanics
+
+The next step is access. An observed repricing relationship matters to a maker only through the
+orders that can remain, activate or cancel while the market responds. The following measurements
+therefore retain the event clock, conditioning set and hypothetical queue convention.
 
 ### 5.1 Clock discipline and health
 
@@ -457,21 +455,17 @@ until modeled removal. Correcting activation in the front experiment removed muc
 apparent opportunity. Acknowledgment, effective cancellation and observed fill reconciliation
 remain separate execution events.
 
-The shared client evolved from v1 SDK-cache warming into explicit v2 per-token metadata,
-version and collateral-balance preparation, dispatched concurrently outside the quote callback.
-The inspected crypto maker warms new outcome tokens at slot transition and uses cached
-tick/negative-risk options. Its GTC post-only order is still built and signed during submission
-in an executor thread. Shared pre-sign/FAK helpers exist but are not called by that route.
-This source trace establishes where preparation occurs; it does not establish an unmeasured
-end-to-end speedup.
-
-That executor buys UP for an UP-space bid and buys DOWN at $1-\text{ask}$ for an UP-space ask.
-Its complementary acquisition route differs operationally from selling pre-split inventory.
-Both can be expressed through signed UP exposure, but balance requirements, collateral
-reservation and fill mechanics must be mapped separately. The accounting below is an economic
-coordinate system, not evidence that every historical executor used the same order path.
+The inspected maker prepares token metadata outside the quote callback, but builds and signs its
+post-only order during submission. It buys complementary tokens to represent UP-book bids and asks.
+Appendix C.2 traces the cache versions and explains how that route differs operationally from
+selling pre-split inventory; the accounting must be matched to the actual route.
 
 ## 6. Binary inventory risk and reservation value
+
+Execution can leave one leg unmatched even when both initial quotes were attractive. Its value
+then depends on the binary payoff and the existing position, which motivates the inventory
+accounting below. The reservation-value calculation clarifies that exposure; actual quote levels
+in the studied policy continue to come from the book.
 
 For cash $c$, UP holdings $q_U$, DOWN holdings $q_D$ and imbalance $I=q_U-q_D$,
 
@@ -633,6 +627,11 @@ remain part of the model.
 
 ## 8. Policy evidence and revisions
 
+The decisive comparisons ask whether the measured information supports a particular action.
+The static front candidate tests the value of obtaining a short-lived quoting position. The
+inventory-policy comparison tests how modeled outcomes change when actions account for which
+side may fill and the exposure already held. Their estimates have different denominators.
+
 ### 8.1 Static front quoting: a favorable-cost rejection
 
 The D12 static front-calm experiment studies clean FULL slots at offsets 10-200 seconds,
@@ -673,11 +672,8 @@ confidence interval or event selection.
 
 ### 8.2 Inventory policies: matched simulator-output comparisons
 
-Earlier D11 and D15 reports motivate the inventory mechanism. In the 1,013-slot A+B+F
-report, REB improved on base by 10.9 cents/slot, CI90 [2.5, 19.5]. The later EVM-minus-REB
-comparison was 67.8 [53, 82]. A grown fresh F=371 comparison reported EVM-minus-base
-83.8 [56.5, 111.7]. These are different historical reports; their original common
-per-slot archives are not regenerated in this paper.
+Earlier D11/D15 campaigns motivated the inventory mechanism; their separate counts and reported
+intervals are retained in Appendix C.3. The reproducible comparison below uses the W snapshot.
 
 The available W snapshot instead contains 368 common slots from eight tapes on July 18-21.
 The public audit matches base, REB, EVM and scrambled EVM one-to-one and retains every
@@ -735,36 +731,17 @@ the corrected component.
 
 ### 8.4 Paper-engine discrepancies as diagnostic evidence
 
-A same-window comparison found approximately +\$21 in replay against approximately -\$31
-in a six-slot paper-engine stress segment. Investigation identified cold-start regime
-blindness, stale-value handling, inventory-cap behavior, loss-limit rearming and
-configuration mismatches. Because the paper implementation was defective, the discrepancy
-does not estimate the economics of a clean live strategy. It identifies conditions that
-the replay and implementation failed to share.
-
-An earlier 157-slot A/B comparison is a separate campaign invalidated by incorrect
-execution assumptions. An older generative-chain calibration also involved a run with
-78.4% balance rejects; reproducing its funnel was a mechanics check. These observations
-are retained as research diagnostics, not merged with the W output recheck into a
-live performance record.
+A same-window stress comparison found that the paper engine and replay did not share critical
+conditions. Cold-start state, stale values, inventory caps and configuration mismatches affected
+the paper engine. These failures prevent a clean economic comparison and identify what an
+execution validation must reconcile. Appendix C.4 preserves the campaign-specific figures and
+distinguishes this episode from earlier invalid runs.
 
 ## 9. Reproducibility and limitations
 
-The technical release at revision `6db010205b3aa3b8b4ee1d5715e06c47de8023b7` includes
-126 tests covering accounting, causality, probability constraints, estimation and policy
-behavior. A clean GitHub checkout passed those tests, 14 example/audit invocations and
-19 published-file hash checks. These are software and release checks; statistical
-validity does not follow from a passing test suite.
-
-**Table 7. What a reader can reproduce from the public package.**
-
-| Layer | Public operation | Remaining boundary |
-|---|---|---|
-| Analytical components | Pricing transform, diffusion, terminal moments, exact CARA values | Assumptions determine applicability |
-| Pricing feature study | Refit seven candidates on 358 cached rows | Original observations and point-in-time feature formation not reconstructed |
-| Mechanics | Audit conditional summaries and selected health classifications | Event selection, original placebo estimates and most uncertainty remain archived |
-| Policy | Evaluate synthetic states with frozen calibration; recheck 368 matched outputs | Historical fill paths, queue access and execution capacity not regenerated |
-| D12 verdict | Apply the decision rule and byte-check the committed result | Original aggregate estimator and raw tapes remain upstream |
+The public package supports analytical checks, selected-feature refits and a matched simulator-output
+audit. Appendix B identifies the exact source revision, commands and reproduction boundary. These
+operations verify specified calculations; they do not reconstruct all unpublished observations.
 
 The most significant limitations concern identification and execution. A price fit
 does not identify a participant. A sample selected through a model cannot by itself
@@ -782,26 +759,25 @@ No new trading experiment is implied by this document release.
 
 ## 10. Discussion and conclusion
 
-The results locate useful structure at several levels. Feed/anchor diagnostics and
-probit regression provide an economical description of the binary price surface.
-The feature study shows why a scale that explains a contemporaneous market trajectory
-may be weak when restricted to information available at entry. Slow basis correction
-and fast feed changes can coexist in a cached reference state. Event studies measure
-how already-observed information reaches the book, provided timing and conditioning
-are stated precisely.
+The research question was what maker value remains after observed price information is passed
+through execution and inventory constraints. The evidence gives a bounded answer. A compact
+pricing model explains much of the observed price surface, and the book commonly moves in the
+direction of an already-observed feed displacement. Neither result prevents a specified front
+quote from having negative expected value after activation and conditional fill costs are included.
+The fresh-data rejection of that candidate is therefore compatible with the strong response study.
 
-The inventory formulation makes a separate contribution: paired and unmatched outcomes
-have different reward and risk channels. A joint-fill decomposition prevents spread
-double counting and explains why one-sided drift costs cannot simply be attached to
-a completed pair. Rebalancing improves modeled outcomes in some samples, while the
-W comparison also demonstrates that this effect depends on sample and convention.
-The static front candidate fails a distinct favorable-cost fresh-data test.
+Inventory decisions change the question after a fill. Completing a pair removes a different risk
+channel from carrying one side, and the four-outcome EV decomposition makes that distinction
+explicit. The recorded W comparisons support the usefulness of that structure within their
+simulator. They do not establish the quantity that would have filled or the online availability
+of the reconstructed decision windows. The next evidential step for an economic claim would be
+quantity-aware execution at causally available decision times, with matched policy comparisons.
 
-The paper's central conclusion is that each transition from price description to
-trading value adds an empirical obligation. Feed alignment does not establish queue
-access; a branch EV does not establish capacity; a stateful replay does not establish
-online decision availability. The released methods, corrections and compact evidence
-make these obligations inspectable and provide a foundation for further research.
+For this study, the defensible findings are the price-formation measurements, the rejection of
+the fixed front candidate and the conditional inventory-policy comparisons. The analytical and
+software contributions make the transitions between them inspectable. This provides a concrete
+answer to the motivating problem: knowing how the book responds is useful information, while
+the value of acting on it must still be established at the order and inventory level.
 
 ## Appendix A. Binary diffusion and utility identities
 
@@ -829,6 +805,22 @@ risk-aversion increment cannot erase a numerically small but recoverable tail.
 
 ## Appendix B. Reproduction route and source map
 
+The technical release at revision `6db010205b3aa3b8b4ee1d5715e06c47de8023b7` includes
+126 tests covering accounting, causality, probability constraints, estimation and policy
+behavior. A clean GitHub checkout passed those tests, 14 example/audit invocations and
+19 published-file hash checks. These are software and release checks; statistical
+validity does not follow from a passing test suite.
+
+**Table B1. What a reader can reproduce from the public package.**
+
+| Layer | Public operation | Remaining boundary |
+|---|---|---|
+| Analytical components | Pricing transform, diffusion, terminal moments, exact CARA values | Assumptions determine applicability |
+| Pricing feature study | Refit seven candidates on 358 cached rows | Original observations and point-in-time feature formation not reconstructed |
+| Mechanics | Audit conditional summaries and selected health classifications | Event selection, original placebo estimates and most uncertainty remain archived |
+| Policy | Evaluate synthetic states with frozen calibration; recheck 368 matched outputs | Historical fill paths, queue access and execution capacity not regenerated |
+| D12 verdict | Apply the decision rule and byte-check the committed result | Original aggregate estimator and raw tapes remain upstream |
+
 From the repository root, the following use Python 3.10+ and its standard library:
 
 ```text
@@ -848,16 +840,71 @@ matplotlib. Figure inputs and output hashes are recorded in
 describe Markdown-to-PDF generation. Building the manuscript does not rerun private
 market collection or any operational service.
 
-**Table B1. Technical and empirical source map.**
+**Table B2. Technical and empirical source map.**
 
 | Paper sections | Public method / evidence |
 |---|---|
-| 3-4 | [Pricing construction](../docs/market-pricing-model.md), [estimation](../docs/pricing-estimation.md), [pricing record](../evidence/pricing_experiments.json) |
-| 5 | [Data engineering](../docs/data-engineering.md), [market response](../docs/market-response.md), [queue mechanics](../docs/queue-and-fill-mechanics.md), [mechanics record](../evidence/mechanics_experiments.json) |
+| 3-4, C.1 | [Pricing construction](../docs/market-pricing-model.md), [estimation](../docs/pricing-estimation.md), [pricing record](../evidence/pricing_experiments.json) |
+| 5, C.2 | [Data engineering](../docs/data-engineering.md), [market response](../docs/market-response.md), [queue mechanics](../docs/queue-and-fill-mechanics.md), [mechanics record](../evidence/mechanics_experiments.json) |
 | 6, Appendix A | [Binary risk derivation](../docs/binary-risk-and-market-making.md), [risk code](../src/btc5m_research/risk.py) |
-| 7-8 | [EV chain](../docs/mdp-ev-chain.md), [policies](../docs/strategies.md), [experiment history](../docs/negative-results.md), [policy record](../evidence/policy_experiments.json) |
+| 7-8, C.3 | [EV chain](../docs/mdp-ev-chain.md), [policies](../docs/strategies.md), [experiment history](../docs/negative-results.md), [policy record](../evidence/policy_experiments.json) |
 | 8.1 | [D12 aggregate](../evidence/links_d12.json), [decision summary](../evidence/d12_public_verdict.json) |
-| 8.4-9 | [Simulation coverage](../docs/simulation-coverage.md), [reproducibility](../REPRODUCIBILITY.md), [publication manifest](../evidence/publication_manifest.json) |
+| 8.4-9, C.4 | [Simulation coverage](../docs/simulation-coverage.md), [reproducibility](../REPRODUCIBILITY.md), [publication manifest](../evidence/publication_manifest.json) |
+
+## Appendix C. Implementation and campaign details
+
+### C.1 Hybrid implementations and descriptive diagnostics
+
+The historical 478-slot diagnostic reports hybrid-v2 level/change correlations of 0.959/0.414,
+compared with 0.954/0.028 for tick-rebased v1. That diagnostic used a fixed per-tick offset
+weight of 0.05; the implemented class used elapsed-time weights, and its separate 60-slot replay
+reported level correlation 0.928. The versions should not be combined into one experiment.
+
+The inspected later class already contains v3 refinements: reference differences use a two-second
+lagged feed, with a current-feed fallback, and scale becomes $1.25+0.50\,RV$. Scale updates
+are cached on accepted samples at least one second apart, retaining at most 901 samples and
+requiring 120 before replacing the initial value. Under sparse arrivals, that buffer spans
+more than 15 minutes. Reading fair value uses buffers and scalar state; it does not refit
+a regression or rescan the volatility history on every quote decision.
+
+### C.2 Submission preparation and inventory routes
+
+The shared client evolved from v1 SDK-cache warming into explicit v2 per-token metadata,
+version and collateral-balance preparation, dispatched concurrently outside the quote callback.
+The inspected crypto maker warms new outcome tokens at slot transition and uses cached
+tick/negative-risk options. Its GTC post-only order is still built and signed during submission
+in an executor thread. Shared pre-sign/FAK helpers exist but are not called by that route.
+This source trace establishes where preparation occurs; it does not establish an unmeasured
+end-to-end speedup.
+
+That executor buys UP for an UP-space bid and buys DOWN at $1-\text{ask}$ for an UP-space ask.
+Its complementary acquisition route differs operationally from selling pre-split inventory.
+Both can be expressed through signed UP exposure, but balance requirements, collateral
+reservation and fill mechanics must be mapped separately. The accounting in Sections 6-7 is an economic
+coordinate system, not evidence that every historical executor used the same order path.
+
+### C.3 Earlier policy comparisons and sample boundaries
+
+Earlier D11 and D15 reports motivate the inventory mechanism. In the 1,013-slot A+B+F
+report, REB improved on base by 10.9 cents/slot, CI90 [2.5, 19.5]. The later EVM-minus-REB
+comparison was 67.8 [53, 82]. A grown fresh F=371 comparison reported EVM-minus-base
+83.8 [56.5, 111.7]. These are different historical reports; their original common
+per-slot archives are not regenerated in this paper.
+
+### C.4 Defective execution campaigns as diagnostics
+
+A same-window comparison found approximately +\$21 in replay against approximately -\$31
+in a six-slot paper-engine stress segment. Investigation identified cold-start regime
+blindness, stale-value handling, inventory-cap behavior, loss-limit rearming and
+configuration mismatches. Because the paper implementation was defective, the discrepancy
+does not estimate the economics of a clean live strategy. It identifies conditions that
+the replay and implementation failed to share.
+
+An earlier 157-slot A/B comparison is a separate campaign invalidated by incorrect
+execution assumptions. An older generative-chain calibration also involved a run with
+78.4% balance rejects; reproducing its funnel was a mechanics check. These observations
+are retained as research diagnostics, not merged with the W output recheck into a
+live performance record.
 
 ## References
 
@@ -880,8 +927,8 @@ market collection or any operational service.
 ## Author and development note
 
 The research is by Eren Ege Çelik. AI coding and writing assistants were used in implementation,
-documentation and preparation of this manuscript. This is a working paper for methodological
-feedback and has not been peer reviewed. The exact CARA exposition and public implementation
+documentation and preparation of this manuscript. This working draft is hosted for reading and
+methodological feedback. It has not been submitted to a journal or peer reviewed. The exact CARA exposition and public implementation
 corrections are identified as publication additions. Feedback is particularly useful on
 pricing-scale identification, feature availability, censoring, quantity-aware fill modeling
 and causal reconstruction of decision times.

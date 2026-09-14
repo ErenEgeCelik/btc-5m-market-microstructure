@@ -25,6 +25,19 @@ const cssPath = require.resolve('katex/dist/katex.min.css');
 const mathCss = fs.readFileSync(cssPath, 'utf8').replace(/url\(([^)]+)\)/g,
   (_, relative) => `url("${pathToFileURL(path.resolve(path.dirname(cssPath), relative.replace(/["']/g, ''))).href}")`);
 const source = fs.readFileSync(input, 'utf8');
+const title = source.match(/^# (.+)$/m)?.[1];
+if (!title) throw new Error('Manuscript needs one title.');
+const escapeHtml = value => value.replace(/[&<>"']/g, character =>
+  ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[character]));
+const fontCss = [
+  ['regular', 400, 'normal'], ['bold', 700, 'normal'],
+  ['italic', 400, 'italic'], ['bolditalic', 700, 'italic'],
+].map(([variant, weight, style]) => {
+  const file = path.join(paper, 'fonts', `lmroman10-${variant}.otf`);
+  if (!fs.existsSync(file)) throw new Error(`Missing bundled font: ${variant}`);
+  return `@font-face { font-family:'Latin Modern Roman'; font-weight:${weight}; font-style:${style};
+    src:url("${pathToFileURL(file).href}") format('opentype'); }`;
+}).join('\n');
 const evidenceRevision = '6db010205b3aa3b8b4ee1d5715e06c47de8023b7';
 const root = path.resolve(paper, '..');
 const components = {
@@ -53,18 +66,19 @@ if (body.includes('katex-error')) {
   throw new Error('Unrendered equations: ' + JSON.stringify(errors));
 }
 const style = `
-@page { size:A4; margin:19mm 19mm 20mm; }
+@page { size:A4; margin:22mm 22mm 23mm; }
 * { box-sizing:border-box; }
-html { color:#17202a; background:white; }
-body { font:10.4pt/1.43 Georgia,'Times New Roman',serif; margin:0; }
-main { max-width:172mm; margin:auto; }
-h1 { font-size:23pt; line-height:1.18; text-align:center; margin:0 0 16pt; }
-h1 + p { text-align:center; font-size:10.6pt; line-height:1.65; margin-bottom:21pt; }
+html { color:#111; background:white; }
+body { font:11pt/1.38 'Latin Modern Roman',serif; margin:0; }
+main { max-width:166mm; margin:auto; }
+h1 { font-size:22pt; font-weight:400; line-height:1.17; text-align:center; margin:0 0 17pt; }
+h1 + p { text-align:center; font-size:11pt; line-height:1.55; margin-bottom:22pt; }
 h2 { font-size:14pt; line-height:1.25; margin:21pt 0 8pt; break-after:avoid; }
-h3 { font-size:11.3pt; margin:14pt 0 6pt; break-after:avoid; }
-p { margin:6pt 0 8pt; orphans:3; widows:3; }
+h3 { font-size:11.5pt; margin:14pt 0 6pt; break-after:avoid; }
+p { margin:6pt 0 8pt; orphans:3; widows:3; text-align:justify; }
+h2 + p, h3 + p { break-inside:avoid; }
 a { color:#203f59; text-decoration:none; overflow-wrap:anywhere; }
-table { width:100%; border-collapse:collapse; font-size:8.8pt; line-height:1.33; margin:10pt 0 13pt; break-inside:avoid; }
+table { width:100%; border-collapse:collapse; font-size:9.3pt; line-height:1.3; margin:10pt 0 13pt; break-inside:avoid; }
 thead { display:table-header-group; }
 th { text-align:left; border-top:1.2pt solid #34495e; border-bottom:.7pt solid #778899; padding:6pt 5pt; }
 td { border-bottom:.35pt solid #d7dce1; padding:5pt; vertical-align:top; }
@@ -77,13 +91,13 @@ p:has(> em:only-child) { font-size:9pt; line-height:1.35; margin:5pt 0 13pt; }
 p:has(> strong:only-child) { font-size:9.2pt; break-after:avoid; margin-top:11pt; }
 p:has(+ .katex-display) { break-after:avoid; }
 .katex { font-size:1.03em; }
-.katex-display { font-size:10pt; margin:12pt 0; overflow:visible; break-inside:avoid; }
+.katex-display { font-size:10.1pt; margin:12pt 0; overflow:visible; break-inside:avoid; }
 .katex-display .tag { font-size:.92em; }
 li { margin:4pt 0; }
 ul { padding-left:17pt; break-inside:avoid; }
 @media screen { body { padding:30px 24px; } }
 `;
 fs.mkdirSync(path.dirname(output), { recursive:true });
-fs.writeFileSync(output, `<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Pricing and Market Making in BTC Five-Minute Prediction Markets</title><style>${mathCss}\n${style}</style></head><body><main>${body}</main></body></html>`);
+fs.writeFileSync(output, `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="author" content="Eren Ege Çelik"><title>${escapeHtml(title)}</title><style>${fontCss}\n${mathCss}\n${style}</style></head><body><main>${body}</main></body></html>`);
 console.log(JSON.stringify({ html:output, displayEquations:(body.match(/class="katex-display"/g)||[]).length,
   images:(body.match(/<img /g)||[]).length }));

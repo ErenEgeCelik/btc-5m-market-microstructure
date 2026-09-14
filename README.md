@@ -20,8 +20,8 @@ in historical Polymarket five-minute markets during May-July 2026.
 engineering reviewers. [Binary risk and Avellaneda-Stoikov](docs/binary-risk-and-market-making.md)
 connects the underlying diffusion, terminal inventory risk and the implemented decision problem.
 
-[Working paper](paper/manuscript.md) / [PDF](paper/crypto-working-paper.pdf): an integrated account
-of the pricing, measurement and inventory-policy research, with source-linked tables and figures.
+[Working draft](paper/manuscript.md) / [PDF](paper/crypto-working-paper.pdf): what maker value remains
+from price information after execution and inventory constraints, with source-linked tables and figures.
 
 ```mermaid
 flowchart LR
@@ -90,7 +90,7 @@ No venue credentials or order client are required.
 | `examples/`, `estimators/` | Runnable demonstrations and numerical rechecks |
 | `evidence/` | Claims, source fingerprints, frozen-input hashes and experiment records |
 | `tests/` | Accounting, causality, probability, estimation and decision invariants |
-| `paper/` | Working paper v0.2, source-linked figures, PDF and document build scripts |
+| `paper/` | Working draft v0.3 for feedback, source-linked figures, PDF and document build scripts |
 
 [Evidence coverage](docs/evidence-and-limitations.md) / [Reproduction instructions](REPRODUCIBILITY.md) /
 [Historical market and settlement](docs/market-and-settlement.md) / [Security](SECURITY.md)

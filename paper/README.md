@@ -1,15 +1,17 @@
 # Working paper
 
-**Pricing and Market Making in BTC Five-Minute Prediction Markets**\
-Eren Ege Çelik - version 0.2, 14 September 2026
+**From Price Information to Maker Decisions in BTC Five-Minute Markets**\
+Eren Ege Çelik - working draft v0.3, 14 September 2026
 
 [Read the manuscript](manuscript.md) / [Download PDF](crypto-working-paper.pdf)
 
-The paper connects Brownian-probit pricing and scale estimation to feed/book measurement,
-binary inventory risk, joint-fill EV and historical policy evaluation. It includes the hybrid
-reference architecture, an explicit Avellaneda-Stoikov comparison, positive simulator-output
-comparisons and a rejected front-quoting candidate. This is a working paper for methodological
-feedback; it has not been peer reviewed.
+The central question is what maker value remains from observed BTC price information after
+order activation, queue access and inventory are included. The draft follows that question through
+pricing estimation, measured book response, joint-fill EV and historical policy comparisons.
+Implementation versions and campaign details are preserved in Appendix C.
+
+This draft is hosted for reading and methodological feedback. It has not been submitted to a
+journal or peer reviewed. Formal submission will be considered after author review and feedback.
 
 ## Evidence and version
 
@@ -27,6 +29,12 @@ labeled as archived reports. None of the document commands reconstruct unpublish
 Version 0.2 expands the earlier draft with the integrated pricing, mechanics and policy methods,
 three source-linked figures, binary-risk derivations and related literature, including Semenas
 (2026). Publication additions and corrections are distinguished from historical implementations.
+
+Version 0.3 gives the abstract, introduction and conclusion one research question, moves supporting
+implementation history into an appendix, and uses [Latin Modern Roman](fonts/README.md), based on
+Computer Modern, for classical mathematical-paper typography. Empirical inputs and estimates are
+unchanged. The font files are bundled with their upstream license, so no system-font installation
+is needed for document generation.
 
 ## Rebuild the figures and PDF
 

@@ -35,13 +35,17 @@ def build(output, modules_root=None, browser_executable=None):
         report['broken_images'] = page.locator('img').evaluate_all('(xs)=>xs.filter(x=>!x.complete||!x.naturalWidth).map(x=>x.src)')
         report['horizontal_overflow'] = page.evaluate('document.documentElement.scrollWidth > innerWidth')
         report['equation_count'] = page.locator('.katex-display').count()
+        report['body_font'] = page.locator('body').evaluate('(element)=>getComputedStyle(element).fontFamily')
+        report['latin_modern_loaded'] = page.evaluate("document.fonts.check('11pt \"Latin Modern Roman\"')")
+        if not report['latin_modern_loaded']:
+            raise RuntimeError('Bundled Latin Modern font did not load.')
         if any(report[key] for key in ['page_errors', 'failed_resources', 'equation_errors', 'broken_images', 'horizontal_overflow']):
             raise RuntimeError(json.dumps(report))
         page.pdf(path=str(output), format='A4', print_background=True, display_header_footer=True,
                  header_template='<span></span>',
-                 footer_template='<div style="font-size:8px;color:#5c6570;width:100%;text-align:center">Eren Ege Celik - Working paper v0.2 - <span class="pageNumber"></span></div>',
+                 footer_template='<div style="font:10px serif;color:#333;width:100%;text-align:center"><span class="pageNumber"></span></div>',
                  prefer_css_page_size=True,
-                 margin={'top':'19mm', 'bottom':'20mm', 'left':'19mm', 'right':'19mm'})
+                 margin={'top':'22mm', 'bottom':'23mm', 'left':'22mm', 'right':'22mm'})
         browser.close()
     output.with_suffix('.build.json').write_text(json.dumps(report, indent=2) + '\n', encoding='utf-8')
     print(json.dumps(report))
